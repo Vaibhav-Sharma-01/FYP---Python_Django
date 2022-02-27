@@ -1,0 +1,335 @@
+{% load static %}
+{% load blog_tags %}
+<DOCTYPE html>
+    <html lang="en">
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+              integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+              crossorigin="anonymous">
+        <link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+        <title>ScoreBoard</title>
+
+        <link
+                href="http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext"
+                rel="stylesheet"
+                type="text/css"
+        />
+        <link
+                rel="stylesheet"
+                href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
+        />
+
+        <link rel="stylesheet" href="{%static 'home/widget.css' %}"/>
+    </head>
+    <body>
+    <div class="containers">
+        <!--Whole Container -->
+        <div class="rca-container rca-margin">
+            <!--Widget Outer-->
+            <div class="row shadow-lg p-3 mt-5 mb-4 bg-white rounded">
+                <div class="col-12 border-left border-primary scrollx">
+                    {% for k,v in Live.items %}
+                    {% for i in v %}
+                    <form method="post" action="{% url 'main' %}" class="d-inline">
+                        {% csrf_token %}
+                        <input type="hidden" name="match" value={{i.Eid}}>
+                        <button type="submit" class="btn btn-light mx-4">{{i.Team}}</button>
+                    </form>
+                    {% endfor %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!--Widget Outer-->
+            <div class="row">
+                <!--Widget Inner -->
+                <div class="rca-column-4 shadow-lg p-3 mr-2 bg-white rounded">
+                    <!--Match Series-->
+                    <div class="rca-top-border">
+                        <ul class="rca-tab-list">
+                            <li
+                                    class="rca-tab-link active"
+                                    data-tab="rtab-11"
+                                    onclick="showTab(this);"
+                            >
+                                Your Selected
+                            </li>
+                        </ul>
+                        <div
+                                id="rtab-12x"
+                                class="scroll rca-padding rca-tab-content rca-multi-season active"
+                        >
+                            <ul class="rca-tab-list">
+                                <li
+                                        class="rca-tab-link active"
+                                        data-tab="iltab-1"
+                                        onclick="showTab(this);"
+                                >
+                                    {% with True as flag %}
+                                    {% for k, v in data.items %}
+                                    {% for i in v %}
+                                    {% if flag %}
+                                    <span class="rca-live-label">{{i.Team}}</span>
+                                    {% update_variable False as flag %}
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% endfor %}
+                                    {% endwith %}
+                                </li>
+                            </ul>
+                            {% for k, v in data.items %}
+                            {% for i in v %}
+                            <div id="iltab-11x" class="rca-tab-content active">
+                                <div class="">
+                                    <div class="">
+                                        <p>{{i.Innings}}</p>
+                                        <div class="rca-batsman striker">
+                                            <span class="player">{{i.player_name}}</span>
+                                            <span>{{i.Runs}}({{i.balls}})</span>
+                                        </div>
+                                        <div class="rca-batsman strikerz">
+                                            <span class="player">by {{i.bowler_name}}</span>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <!--Widget Inner -->
+                <div class="rca-column-4 shadow-lg p-3 mr-2 ml-2 bg-white rounded">
+                    <!--Match Series-->
+                    <div class="rca-top-border">
+                        <ul class="rca-tab-list">
+                            <li
+                                    class="rca-tab-link active"
+                                    data-tab="rtab-11"
+                                    onclick="showTab(this);"
+                            >
+                                Upcoming this week
+                            </li>
+
+
+                        </ul>
+                        <div
+                                id="rtab-11x"
+                                class="scroll rca-padding rca-tab-content rca-multi-season active"
+                        >
+                            <ul class="rca-tab-list">
+                                {% for k,v in upcoming.items %}
+                                {% for i in v %}
+                                <li
+                                        class="rca-tab-link active"
+                                        data-tab="iltab-1"
+                                >
+                                    <span class="rca-live-label">{{i.Team}}</span>
+                                </li>
+                                <hr>
+                                {% endfor %}
+                                {% endfor %}
+                            </ul>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="rca-column-4 shadow-lg p-3 ml-2 bg-white rounded">
+                    <!--Match Series-->
+                    <div class="rca-top-border">
+                        <ul class="rca-tab-list">
+                            <li
+                                    class="rca-tab-link active"
+                                    data-tab="rtab-11"
+                                    onclick="showTab(this);"
+                            >
+                                Completed/In Progress
+                            </li>
+                        </ul>
+                        <div
+                                id="rtab-11"
+                                class="rca-padding rca-tab-content rca-multi-season active scroll"
+                        >
+                            <ul class="rca-tab-list">
+                                {% for k,v in past.items %}
+                                {% for i in v %}
+                                <li
+                                        class="rca-tab-link active"
+                                        data-tab="iltab-1"
+                                >
+                                    <span class="rca-live-label">{{i.Team}}</span>
+                                </li>
+                                <hr>
+                                {% endfor %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!--Widget Inner -->
+                </div>
+            </div>
+
+
+            <div class="row shadow-lg mt-5 mb-4 bg-white rounded">
+                <div class="col-12 rca-top-border">
+                    <div class="">
+                        <h2 style="text-align: center;" class="pt-3">INTERNATIONAL CRICKET SCHEDULES</h2>
+
+                        <div id="stab-1" class="rca-padding rca-tab-content active">
+                            <div class="rca-schedule-date">
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <div class="row p-3">
+                                        <div class="co1-10">
+                                            <h5><input class="form-control" type="date" name="dates"></h5>
+                                        </div>
+                                        <div class="col-2">
+                                            <input class="btn btn-outline-warning" type="submit" value="Search">
+                                        </div>
+                                    </div>
+                                </form>
+                                {% for k,v in MBD.items %}
+                                {% for i in v %}
+                                <div class="rca-schedule-detail rca-test">
+                                    <h2>
+                                        <a href="main.html">
+                                            <span class="rca-team">{{i.Team}}</span>
+                                        </a>
+                                    </h2>
+                                    <p>{{i.Leagues}}</p>
+                                </div>
+                                {% endfor %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div id="stab-2" class="rca-padding rca-tab-content"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-6">
+                <!--Points Table-->
+                <div class="shadow-lg p-3 mb-5 bg-white rounded rca-top-border">
+                    <ul class="rca-tab-list">
+                        <li
+                                class="rca-tab-link active"
+                                data-tab="tab-41"
+                                onclick="showTab(this);"
+                        >
+                            Group A
+                        </li>
+                        <li
+                                class="rca-tab-link"
+                                data-tab="tab-42"
+                                onclick="showTab(this);"
+                        >
+                            Group B
+                        </li>
+                    </ul>
+                    <div id="tab-41" class="rca-tab-content rca-padding active">
+                        <div class="rca-bowling-score rca-padding rca-no-border">
+                            <!-- <h3>IPL 2016 - Group A Points Table</h3> -->
+                            <div class="rca-row">
+                                <div class="rca-header rca-table">
+                                    <div class="rca-col rca-player">Team</div>
+                                    <div class="rca-col small">
+                                        M<span class="rca-hide-mobile">atch</span>
+                                    </div>
+                                    <div class="rca-col small">
+                                        W<span class="rca-hide-mobile">on</span>
+                                    </div>
+                                    <div class="rca-col small">
+                                        L<span class="rca-hide-mobile">ost</span>
+                                    </div>
+                                    <div class="rca-col small rca-hide-mobile">Tied</div>
+                                    <div class="rca-col small rca-hide-mobile">Net RR</div>
+                                    <div class="rca-col small">Pts</div>
+                                </div>
+                            </div>
+                            <div class="rca-row">
+                                <div class="rca-table">
+                                    <div class="rca-col rca-player">GL</div>
+                                    <div class="rca-col small">9</div>
+                                    <div class="rca-col small">2</div>
+                                    <div class="rca-col small">38</div>
+                                    <div class="rca-col small rca-hide-mobile">2</div>
+                                    <div class="rca-col small rca-hide-mobile">5.00</div>
+                                    <div class="rca-col small">3</div>
+                                </div>
+                            </div>
+                            <div class="rca-row">
+                                <div class="rca-table">
+                                    <div class="rca-col rca-player">RCB</div>
+                                    <div class="rca-col small">6</div>
+                                    <div class="rca-col small">2</div>
+                                    <div class="rca-col small">38</div>
+                                    <div class="rca-col small rca-hide-mobile">2</div>
+                                    <div class="rca-col small rca-hide-mobile">7.00</div>
+                                    <div class="rca-col small">3</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-42" class="rca-tab-content rca-padding">
+                        <div class="rca-bowling-score rca-padding rca-no-border">
+                            <h3>IPL 2016 - Group B Points Table</h3>
+                            <div class="rca-row">
+                                <div class="rca-header rca-table">
+                                    <div class="rca-col rca-player">Team</div>
+                                    <div class="rca-col small">Match</div>
+                                    <div class="rca-col small">Won</div>
+                                    <div class="rca-col small">Lost</div>
+                                    <div class="rca-col small">Tied</div>
+                                    <div class="rca-col small">Net RR</div>
+                                    <div class="rca-col small">Pts</div>
+                                </div>
+                            </div>
+                            <div class="rca-row">
+                                <div class="rca-table">
+                                    <div class="rca-col rca-player">GL</div>
+                                    <div class="rca-col small">9</div>
+                                    <div class="rca-col small">2</div>
+                                    <div class="rca-col small">38</div>
+                                    <div class="rca-col small">2</div>
+                                    <div class="rca-col small">5.00</div>
+                                    <div class="rca-col small">3</div>
+                                </div>
+                            </div>
+                            <div class="rca-row">
+                                <div class="rca-table">
+                                    <div class="rca-col rca-player">RCB</div>
+                                    <div class="rca-col small">6</div>
+                                    <div class="rca-col small">2</div>
+                                    <div class="rca-col small">38</div>
+                                    <div class="rca-col small">2</div>
+                                    <div class="rca-col small">7.00</div>
+                                    <div class="rca-col small">3</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="rca-column-3"></div>
+            <div class="rca-clear"></div>
+        </div>
+    </div>
+    </div>
+
+
+    </div>
+    </body>
+    </html>

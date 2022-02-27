@@ -8,19 +8,34 @@ urlpatterns = [
 
     path('', views.home, name='home'),
 
-    path('/index', views.index, name='index'),
+    path('/cricket/index', views.index, name='index'),
 
-    path('/widget', views.widgets, name='widgets'),
+    path('/cricket/widget', views.widgets, name='widgets'),
 
-    path('/main', views.Main, name='main'),
+    path('/cricket/main', views.Main, name='main'),
 
-    url('/index', TemplateView.as_view(template_name="home/index.html"),
+    url('/cricket/index', TemplateView.as_view(template_name="home/cricket/index.html"),
         name='index'),
 
-    url('/main', TemplateView.as_view(template_name="home/main.html"),
+    url('/cricket/main', TemplateView.as_view(template_name="home/cricket/main.html"),
         name='main'),
 
-    url('/widget', TemplateView.as_view(template_name="home/widgets.html"),
+    url('/cricket/widget', TemplateView.as_view(template_name="home/cricket/widgets.html"),
         name='widget'),
+
+    path('/football/index', views.findex, name='findex'),
+
+    path('/football/widget', views.widgets, name='fwidgets'),
+
+    path('/football/main', views.Main, name='fmain'),
+
+    url('/football/index', TemplateView.as_view(template_name="home/football/index.html"),
+        name='findex'),
+
+    url('/football/main', TemplateView.as_view(template_name="home/football/main.html"),
+        name='fmain'),
+
+    url('/football/widget', TemplateView.as_view(template_name="home/football/widgets.html"),
+        name='fwidget'),
 
 ]

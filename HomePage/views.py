@@ -8,6 +8,7 @@ Eids = []
 #         'x-rapidapi-host': "livescore6.p.rapidapi.com",
 #         'x-rapidapi-key': "2f7d4e24b8msh1eca7845910287cp1caff8jsnc9bd026ddb82"
 #     }
+
 headers = {
     'x-rapidapi-host': "livescore6.p.rapidapi.com",
     'x-rapidapi-key': "179f92de74msh12ff1e0eeed7f88p15465djsn09f3cb5c5863"
@@ -50,7 +51,7 @@ def index(request):
             })
     data.__setitem__(length, datas)
 
-    return render(request, 'home/index.html', {'data': data, 'news': News, 'MatchInfo': Team, 'Images': Image})
+    return render(request, 'home/cricket/index.html', {'data': data, 'news': News, 'MatchInfo': Team, 'Images': Image})
 
 def widgets(request):
 
@@ -191,7 +192,7 @@ def widgets(request):
         data.__setitem__(length, LData)
     # Finding for details of match Ends here
 
-    return render(request, 'home/widgets.html', {'data': data, 'upcoming': datadic, 'past': datadi, "MBD": datedata, "Live": Livedata})
+    return render(request, 'home/cricket/widgets.html', {'data': data, 'upcoming': datadic, 'past': datadi, "MBD": datedata, "Live": Livedata})
 
 def Main(request):
 
@@ -250,7 +251,7 @@ def Main(request):
             })
     data.__setitem__(length, datas)
     print(data)
-    return render(request, 'home/main.html', {'data': data})
+    return render(request, 'home/cricket/main.html', {'data': data})
 
 def GetCricketLiveMatches():
     url = "https://livescore6.p.rapidapi.com/matches/v2/list-live"
@@ -316,5 +317,97 @@ def PastCricketMatches():
     return yesterday.strftime('%Y%m%d')
 
 def CricketMatchesToday():
+    presentday = datetime.now()
+    return presentday.strftime('%Y%m%d')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def findex(request):
+    Eids = GetSoccerLiveMatches()
+    News = GetLatestSoccerNews()
+    Image = SoccerGallery()
+    url = "https://livescore6.p.rapidapi.com/matches/v2/detail"
+    for i in Eids:
+        querystring = {"Eid": i, "Category": "soccer", "LiveTable": "true"}
+        response = requests.request("GET", url, headers=headers, params=querystring)
+        res = response.json()
+    return render(request, 'home/football/index.html', {'news': News, 'Images': Image })
+
+
+def GetSoccerLiveMatches():
+    url = "https://livescore6.p.rapidapi.com/matches/v2/list-live"
+    querystring = {"Category": "soccer"}
+    response = requests.request("GET", url, headers=headers, params=querystring)
+    res = response.json()
+    Eid = []
+    for i in res['Stages']:
+        Eid.append(i['Events'][0]['Eid'])
+    return Eid
+
+def GetSoccerMatchesByDate(Date):
+    url = "https://livescore6.p.rapidapi.com/matches/v2/list-by-date"
+    querystring = {"Category": "soccer", "Date": Date}
+    response = requests.request("GET", url, headers=headers, params=querystring)
+    res = response.json()
+    Eid = []
+    for i in res['Stages']:
+        Eid.append(i['Events'][0]['Eid'])
+    return Eid
+
+def GetLatestSoccerNews():
+    url = "https://livescore6.p.rapidapi.com/news/v2/list-by-sport"
+    querystring = {"category": "2021020913320920836", "page": "1"}
+    response = requests.request("GET", url, headers=headers, params=querystring)
+    data = response.json()['data']
+    news = []
+    newss = {}
+    for i in data:
+        news.append({
+            'Title': i['title'],
+            'Time': i['published_at'],
+            'Body': i['body'][2]['data']['content'].replace("</p>", "").replace("<p>",""),
+            'Image': i['image']['data']['urls']['uploaded']['gallery']
+        })
+    newss.__setitem__("news",news)
+    return newss
+
+def SoccerGallery():
+    url = "https://livescore6.p.rapidapi.com/news/v2/list-by-sport"
+    querystring = {"category": "2021020913320920836", "page": "1"}
+    response = requests.request("GET", url, headers=headers, params=querystring)
+    data = response.json()['data']
+    Image = []
+    Images = {}
+    for i in data:
+        Image.append({
+            'Image': i['image']['data']['urls']['uploaded']['gallery']
+        })
+    Images.__setitem__("img", Image)
+    print(Images)
+    return Images
+
+def UpcomingSoccerMatches():
+    presentday = datetime.now()
+    tomorrow = presentday + timedelta(1)
+    return tomorrow.strftime('%Y%m%d')
+
+def PastSoccerMatches():
+    presentday = datetime.now()
+    yesterday = presentday - timedelta(1)
+    return yesterday.strftime('%Y%m%d')
+
+def SoccerMatchesToday():
     presentday = datetime.now()
     return presentday.strftime('%Y%m%d')

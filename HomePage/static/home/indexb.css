@@ -1,0 +1,194 @@
+body {
+    font-family: 'Aclonica';
+    font-size: 14px;
+  }
+  
+  .containersb{
+    background-image: url(basketball.jpg);
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow-y: scroll;
+    color: rgb(236, 236, 246);
+  }
+  
+  .cont{
+    margin :25px;
+      background-color: #0b0b0b00;
+      height: 1325px;
+      padding: 0px 130px;
+   }
+  
+  
+  * {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+   
+  }
+  
+  img{
+    border-radius: 50%;
+    margin: 6px;
+    margin-bottom: 0px;
+  }
+  .grid-container {
+    display: grid;
+    size:0ch;
+    grid-template-areas: 
+      'header header header header header header' 
+      'left left middle middle right right' 
+      'footer footer footer footer footer footer';
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    grid-column-gap: 10px; 
+  } 
+  
+  .left,
+  .middle,
+  .right {
+    padding: 30px 30px 30px 0px;
+    margin-top: 15px;
+    margin-bottom:15px;
+    opacity:0.7;
+    text-align: center;
+    border-radius: 3%;
+  }
+  
+  /* Style the left column */
+  .left {
+    grid-area: left;
+    
+  }
+  
+  /* Style the middle column */
+  .middle {
+    grid-area: middle;
+    
+  }
+  
+  /* Style the right column */
+  .right {
+    grid-area: right;
+    padding: 30px;
+  }
+  .leagues
+  {
+    padding: 10px;
+    align-items: left;
+  }
+  .match{
+    padding: 10px;
+    align-items: left;
+  }
+  .leagues .leaguestypes button
+  {
+    margin:5px;
+    /*display: block;*/
+    color:black;
+    width: 100%;
+  }
+  .match .livematches button
+  {
+    margin:3px;
+    /*display: block;*/
+    color:black;
+    width: 100%;
+  }
+  .teamlbteamr{
+    display:inline; 
+    background-color: rgb(244, 120, 19);;
+    border-radius: 3px;
+    padding: 2px;
+  }
+  .leagues .leaguestypes  button span img
+  {
+    widht:20px;
+    height:20px;
+    text-align: center;
+    float:left;
+  }
+  .pointable .pointables
+  {
+    width:50%;
+    height:100%;
+    text-align: justify;
+   text-overflow: hidden;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  th, td {
+    margin-right: 2px;
+    text-align: left;
+    padding: 5px;
+  }
+  
+  tr:nth-child(even) {background-color: #f2f2f2;}
+  tr:nth-child(odd) {background-color: rgb(244, 120, 19);;}
+  .teaml{
+    float: left;
+    background-color: white;
+    padding:0px;
+  }
+  .teamr
+  {
+    float:right;
+    background-color: white;
+    padding:0px;
+  }
+  /* Style the footer */
+  .newsheadlines {
+    grid-area: footer;
+    background-color: rgb(16, 16, 16);;
+    opacity:0.9;
+    padding: 10px;
+    color:black;
+    text-align: center;
+    display: inline;
+  }
+  .newsheadlines p{
+    border: 3px solid rgb(244, 120, 19);
+    background-color:rgb(244, 120, 19);
+    opacity: 1;
+    text-align: center;
+    text-size-adjust: 45px;
+  }
+  .col-5{
+      display: block;
+  }
+  .NTT{
+      color:black;
+      overflow-y: auto;
+      width:100%;
+  }
+  .news{
+      background-color: rgb(17, 16, 16);
+      color:white;
+  }
+  
+  .newscolumn{
+    padding:50px;
+      width:100%;
+  }
+  .newscolumn img{
+      border-radius: 5px;
+  }
+  .footer .rca-column-8 .rca-footer li{
+    margin :20px;
+    display: inline;
+  }
+  @media (max-width: 500px) {
+    .grid-container  {
+      grid-template-areas: 
+        'header header header header header header' 
+        'left left left left left left' 
+        'middle middle middle middle middle middle' 
+        'right right right right right right' 
+        'footer footer footer footer footer footer';
+    }
+  }

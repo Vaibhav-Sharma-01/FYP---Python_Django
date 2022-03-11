@@ -411,3 +411,19 @@ def PastSoccerMatches():
 def SoccerMatchesToday():
     presentday = datetime.now()
     return presentday.strftime('%Y%m%d')
+
+
+
+
+
+#Change it for basket ball:
+def bindex(request):
+    Eids = GetSoccerLiveMatches()
+    News = GetLatestSoccerNews()
+    Image = SoccerGallery()
+    url = "https://livescore6.p.rapidapi.com/matches/v2/detail"
+    for i in Eids:
+        querystring = {"Eid": i, "Category": "soccer", "LiveTable": "true"}
+        response = requests.request("GET", url, headers=headers, params=querystring)
+        res = response.json()
+    return render(request, 'home/basketball/index.html', {'news': News, 'Images': Image })

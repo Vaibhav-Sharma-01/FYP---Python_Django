@@ -3,7 +3,6 @@ from django.utils import timezone
 
 # Create your models here.
 
-
 class user(models.Model):
     user_id = models.AutoField
     username = models.CharField(max_length=20)

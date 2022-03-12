@@ -4,15 +4,15 @@ from datetime import datetime, timedelta
 
 Eids = []
 
-# headers = {
-#         'x-rapidapi-host': "livescore6.p.rapidapi.com",
-#         'x-rapidapi-key': "2f7d4e24b8msh1eca7845910287cp1caff8jsnc9bd026ddb82"
-#     }
-
 headers = {
     'x-rapidapi-host': "livescore6.p.rapidapi.com",
-    'x-rapidapi-key': "179f92de74msh12ff1e0eeed7f88p15465djsn09f3cb5c5863"
-    }
+    'x-rapidapi-key': "2f7d4e24b8msh1eca7845910287cp1caff8jsnc9bd026ddb82"
+}
+
+# headers = {
+#     'x-rapidapi-host': "livescore6.p.rapidapi.com",
+#     'x-rapidapi-key': "179f92de74msh12ff1e0eeed7f88p15465djsn09f3cb5c5863"
+#     }
 
 def home(request):
     return render(request, 'home/HomePage.html')
@@ -54,7 +54,6 @@ def index(request):
     return render(request, 'home/cricket/index.html', {'data': data, 'news': News, 'MatchInfo': Team, 'Images': Image})
 
 def widgets(request):
-
     # Upcoming Date
     Upcomingdate = UpcomingCricketMatches()
 
@@ -87,7 +86,7 @@ def widgets(request):
     # Upcoming Matches
     LData = []
     datadic = {}
-    querystring = {"Category":"cricket","Date":Upcomingdate}
+    querystring = {"Category": "cricket", "Date": Upcomingdate}
     responses = requests.request("GET", url, headers=headers, params=querystring)
     resu = responses.json()
     for i in resu['Stages']:
@@ -116,7 +115,7 @@ def widgets(request):
 
     # Date Wise Matches
     Date = request.POST.get('dates', datetime.now().strftime('%Y%m%d'))
-    date_time_obj = Date.replace("-","")
+    date_time_obj = Date.replace("-", "")
     LData = []
     datedata = {}
     querystrings = {"Category": "cricket", "Date": date_time_obj}
@@ -134,7 +133,7 @@ def widgets(request):
     # Date Wise Matches Ends Here
 
     # Storing Eid from Index.html in session
-    if(request.POST.get('Eid') != None):
+    if (request.POST.get('Eid') != None):
         request.session['Eid'] = request.POST.get('Eid')
     # Storing Ends Here
 
@@ -192,10 +191,10 @@ def widgets(request):
         data.__setitem__(length, LData)
     # Finding for details of match Ends here
 
-    return render(request, 'home/cricket/widgets.html', {'data': data, 'upcoming': datadic, 'past': datadi, "MBD": datedata, "Live": Livedata})
+    return render(request, 'home/cricket/widgets.html',
+                  {'data': data, 'upcoming': datadic, 'past': datadi, "MBD": datedata, "Live": Livedata})
 
 def Main(request):
-
     # Storing Eid from Index.html in session
     if (request.POST.get('match') != None):
         request.session['NEid'] = request.POST.get('match')
@@ -285,10 +284,10 @@ def GetLatestCricketNews():
         news.append({
             'Title': i['title'],
             'Time': i['published_at'],
-            'Body': i['body'][0]['data']['content'].replace("</p>", "").replace("<p>",""),
+            'Body': i['body'][0]['data']['content'].replace("</p>", "").replace("<p>", ""),
             'Image': i['image']['data']['urls']['uploaded']['gallery']
         })
-    newss.__setitem__("news",news)
+    newss.__setitem__("news", news)
     return newss
 
 def CricketGallery():
@@ -324,27 +323,101 @@ def CricketMatchesToday():
 
 
 
-
-
-
-
-
-
-
-
-
-
 def findex(request):
     Eids = GetSoccerLiveMatches()
     News = GetLatestSoccerNews()
     Image = SoccerGallery()
     url = "https://livescore6.p.rapidapi.com/matches/v2/detail"
+
+    # Leagues details Starts Here
+
+    Live_Teams = []
+    liveteams = {}
     for i in Eids:
         querystring = {"Eid": i, "Category": "soccer", "LiveTable": "true"}
         response = requests.request("GET", url, headers=headers, params=querystring)
         res = response.json()
-    return render(request, 'home/football/index.html', {'news': News, 'Images': Image })
+        # League Data
+        Team1 = res['T1'][0]['Nm']
+        Team2 = res['T2'][0]['Nm']
+        Team1Img = res['T1'][0]['Img']
+        Team2Img = res['T2'][0]['Img']
+        Live_Teams.append({'T1': Team1, 'T2': Team2, 'T1Img': Team1Img, 'T2Img': Team2Img})
+    liveteams.__setitem__("live", Live_Teams)
+    leaguesdetails = GetSoccerMatchDetailsByLeague("europa-league", "group-a")
 
+    # Leagues Details Ends Here
+
+    # pointsTable starts here
+
+    pointsTable = []
+    ptable = {}
+    count = 0
+    for i in leaguesdetails:
+        count += 1
+        pointsTable.append({
+            'Count': count,
+            'Team': i['Tnm'],
+            'Wins': i['win'],
+            'Loose': i['lst'],
+            'Points': i['pts'],
+            'Played': i['pld'],
+            'Draws': i['drw'],
+            'GoalDiff': i['gd'],
+            'GoalFor': i['gf'],
+            'GoalsAgainst': i['ga']
+        })
+    ptable.__setitem__("pts", pointsTable)
+
+    # # points table ends here
+
+    # Stats Details Starts Here
+    Eids = GetSoccerMatchesByLeague("europa-league", "group-a")
+    url = "https://livescore6.p.rapidapi.com/matches/v2/detail"
+    Stats = []
+    statsdata = {}
+    for i in Eids:
+        querystring = {"Eid": i, "Category": "soccer", "LiveTable": "true"}
+        response = requests.request("GET", url, headers=headers, params=querystring)
+        res = response.json()
+        # Stats Data
+        Stats.append({
+            'Score': res['Tr1'] + " : " + res['Tr2'],
+            'Possession': str(res['Stat'][0]['Pss']) + " Possession " + str(res['Stat'][1]['Pss']),
+            'Offside': str(res['Stat'][0]['Ofs']) + " OffSide " + str(res['Stat'][1]['Ofs']),
+            'Fouls': str(res['Stat'][0]['Fls']) + " Fouls " + str(res['Stat'][1]['Fls']),
+            'Corners': str(res['Stat'][0]['Cos']) + " Corners " + str(res['Stat'][1]['Cos']),
+            'YellowCards': str(res['Stat'][0]['Ycs']) + " Yellow Cards " + str(res['Stat'][1]['Ycs'])})
+    statsdata.__setitem__("stats", Stats)
+
+    # Stats Details Ends Here
+
+    # Previous Matches
+    PastDate = PastSoccerMatches()
+    url = "https://livescore6.p.rapidapi.com/matches/v2/list-by-date"
+    querystring = {"Category": "soccer", "Date": PastDate}
+    responses = requests.request("GET", url, headers=headers, params=querystring)
+    LData = []
+    datadi = {}
+    resu = responses.json()
+    for i in resu['Stages']:
+        if('CompN' in i.keys()):
+            Team = i['CompN']
+            LData.append({
+                "Team": Team
+            })
+        else:
+            Team = i['Snm']
+            LData.append({
+                "Team": Team
+            })
+    length = len(resu)
+    datadi.__setitem__(length, LData)
+    # Previous Matches Ends Here
+
+
+    return render(request, 'home/football/index.html',
+                  {'stats': statsdata, 'pointstable': ptable, 'live': liveteams, 'news': News, 'Images': Image, 'past': datadi})
 
 def GetSoccerLiveMatches():
     url = "https://livescore6.p.rapidapi.com/matches/v2/list-live"
@@ -366,6 +439,29 @@ def GetSoccerMatchesByDate(Date):
         Eid.append(i['Events'][0]['Eid'])
     return Eid
 
+def GetSoccerMatchDetailsByLeague(league, grp):
+    url = "https://livescore6.p.rapidapi.com/matches/v2/list-by-league"
+
+    querystring = {"Category": "soccer", "Ccd": league, "Scd": grp}
+    response = requests.request("GET", url, headers=headers, params=querystring)
+    res = response.json()
+    return res['Stages'][0]['LeagueTable']['L'][0]['Tables'][0]['team']
+
+def GetSoccerMatchesByLeague(league, grp):
+    url = "https://livescore6.p.rapidapi.com/matches/v2/list-by-league"
+
+    querystring = {"Category": "soccer", "Ccd": league, "Scd": grp}
+    response = requests.request("GET", url, headers=headers, params=querystring)
+    res = response.json()
+    Eid = []
+    for i in res['Stages']:
+        Eid.append(i['Events'][0]['Eid'])
+    return Eid
+
+    # for i in res['Stages']:
+    #     for j in i['Events']:
+    #         Eid.append(j['Eid'])
+
 def GetLatestSoccerNews():
     url = "https://livescore6.p.rapidapi.com/news/v2/list-by-sport"
     querystring = {"category": "2021020913320920836", "page": "1"}
@@ -377,10 +473,10 @@ def GetLatestSoccerNews():
         news.append({
             'Title': i['title'],
             'Time': i['published_at'],
-            'Body': i['body'][2]['data']['content'].replace("</p>", "").replace("<p>",""),
+            'Body': i['body'][2]['data']['content'].replace("</p>", "").replace("<p>", ""),
             'Image': i['image']['data']['urls']['uploaded']['gallery']
         })
-    newss.__setitem__("news",news)
+    newss.__setitem__("news", news)
     return newss
 
 def SoccerGallery():
@@ -395,7 +491,6 @@ def SoccerGallery():
             'Image': i['image']['data']['urls']['uploaded']['gallery']
         })
     Images.__setitem__("img", Image)
-    print(Images)
     return Images
 
 def UpcomingSoccerMatches():
@@ -416,7 +511,6 @@ def SoccerMatchesToday():
 
 
 
-#Change it for basket ball:
 def bindex(request):
     Eids = GetSoccerLiveMatches()
     News = GetLatestSoccerNews()
@@ -426,4 +520,25 @@ def bindex(request):
         querystring = {"Eid": i, "Category": "soccer", "LiveTable": "true"}
         response = requests.request("GET", url, headers=headers, params=querystring)
         res = response.json()
-    return render(request, 'home/basketball/index.html', {'news': News, 'Images': Image })
+    return render(request, 'home/basketball/index.html', {'news': News, 'Images': Image})
+
+def GetBasketballLiveMatches():
+    url = "https://livescore6.p.rapidapi.com/matches/v2/list-live"
+    querystring = {"Category": "basketball"}
+    response = requests.request("GET", url, headers=headers, params=querystring)
+    res = response.json()
+    Eid = []
+    print(res)
+    for i in res['Stages']:
+        Eid.append(i['Events'][0]['Eid'])
+    return Eid
+
+def GetBasketbllMatchesByDate(Date):
+    url = "https://livescore6.p.rapidapi.com/matches/v2/list-by-date"
+    querystring = {"Category": "basketbll", "Date": Date}
+    response = requests.request("GET", url, headers=headers, params=querystring)
+    res = response.json()
+    Eid = []
+    for i in res['Stages']:
+        Eid.append(i['Events'][0]['Eid'])
+    return Eid

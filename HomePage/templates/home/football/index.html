@@ -20,167 +20,180 @@
             rel="stylesheet"
             href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
     />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
-    <link rel="stylesheet" href="{%static 'home/index.css' %}"/>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{%static 'home/football/index.css' %}">
     <script>
 
     </script>
 </head>
 <body>
-<div class="containers">
+<div class="containersb">
 
     <!--        Container Section-->
     <div class="cont">
         <!--            Logo -->
         <div class="row">
             <div class="col-12">
-                <div class="rca-logo">
+                <div class="logo">
                     <h2>
-                <span><img src="{%static 'home/cric-icon.jpeg' %}" style="width: 50px"/></span
-                ><span style="color: aliceblue;"><b>SportsWiki</b></span>
+                <span><img src="{%static 'home/football/ball-of-basket.jpg' %}" style="width: 50px"/></span
+                ><span style="color: rgb(255, 255, 255);"><b>SportsWiki</b></span>
                     </h2>
                 </div>
             </div>
         </div>
-        <!--            Logo Ends Here-->
+        <div class="grid-container">
 
-        <!--            Upcoming Matches-->
-        <div class="row shadow-lg p-3 mb-5 bg-white rounded">
-            <div class="col-12 border-left border-primary">
-                <button type="button" class="btn btn-light mx-4">BAN vs ZIM</button>
-                <button type="button" class="btn btn-light mx-4">IND vs AUS</button>
-                <button type="button" class="btn btn-light mx-4">WI vs IND</button>
-                <button type="button" class="btn btn-light mx-4">RSA vs NZ</button>
-                <button type="button" class="btn btn-light mx-4">ENG vs BAN</button>
-                <button type="button" class="btn btn-light mx-4">AUS vs ZIM</button>
-                <button type="button" class="btn btn-light mx-4">SA vs IN</button>
+            <div class="header shadow-lg bg-dark mt-4 mb-4 rounded">
+                <div class="leagues">
+                    <div class="leaguestypes">
+                        {% for k,v in past.items %}
+                        {% for i in v %}
+                        <button type="button" class="btn btn-light mx-4"><span><img
+                                src="{%static 'home/football/nba.png' %}">{{i.Team}}</span></button>
+                        {% endfor %}
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
-        </div>
-        <!--                Upcoming Matches Here-->
 
-        <!--            Info Section-->
-        <div class="row">
-            <div class="col-6 shadow-lg p-3 mb-5 bg-white rounded">
-                <!--Match Scores-->
-                <div class="">
-                    <ul class="rca-tab-list">
-                        <li
-                                class="rca-tab-link border-bottom left active"
-                                data-tab="ltab-1"
-                        >
-                            Live Matches
-                        </li>
-                        <li
-                                class="rca-tab-link border-bottom right active"
-                                data-tab="ltab-1"
-                        >
-                            Match Details
-                        </li>
-                    </ul>
-                    <div id="ltab-1" class="rca-padding rca-tab-content rca-multi-season active">
-                        <div class="lefts">
-                            {% for k in MatchInfo %}
-                            <ul class="rca-tab-list live">
-                                <li
-                                        class="rca-tab-link"
-                                        data-tab="iltab-1"
-                                >
-                                    <span class="rca-live-label" style="font-size:12px">{{ k }}</span>
-                                </li>
-                            </ul>
-                            {% endfor %}
+            <div>
+                <div class="left shadow-lg bg-dark mt-4 mb-4 rounded"
+                     style="background-color:rgba(104, 99, 99, 0.685);">
+                    <h5 class="headlines mt-4">NEWS HEADLINES</h5>
+
+                    <div class="headlinecontent">
+                        {% for k,v in news.items %}
+                        {% for i in v %}
+                        <div class="shadow-lg bg-dark p-2 m-4">
+                            <h5>
+                                <a href="#"
+                                >{{i.Title}}.
+                                </a>
+                            </h5>
+                            <img class="nimages" src={{i.Image}} height="200px" width="100%">
+                            <h6 class="mt-2">
+                                {{i.Body}}
+                            </h6>
+                            <p class="rca-post-info">at {{i.Time}}</p>
                         </div>
-                        <div class="right scrolls">
-                            {% for k, v in data.items %}
+                        {% endfor %}
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="middle shadow-lg bg-dark mt-4 mb-4 rounded"
+                     style="background-color:rgba(104, 99, 99, 0.685);">
+                    <h5 class="headlines mt-4">LIVE MATCHES</h5>
+                    <div class="match">
+                        <div class="livematches">
+                            {% for k,v in live.items %}
                             {% for i in v %}
-                            <div id="iltab-1" class="rca-tab-content active border-bottom">
-                                <div class="rca-padding">
-                                    <h6 class="rca-match-title">
-                                        <form action="{% url 'widget' %}" method="post">
-                                            {% csrf_token %}
-                                            <input type="hidden" name="Eid" value={{i.Eid}}>
-                                            <button>
-                                                {{ i.Teampl }}: {{ i.Total }}/{{ i.Wickets }} in {{ i.overs }}
-                                            </button>
-                                        </form>
-
-                                    </h6>
-                                    <p class="rca-match-info">
-                                        <span>Run Rate: {{i.runrate}}</span>
-                                    </p>
-                                </div>
-                            </div>
+                            <button type="button" class="btn btn-light mx-4"><span
+                                    class="teaml">{{i.Team1Img}}{{i.T1}}</span> <span class="teamlbteamr">vs</span>
+                                <span
+                                        class="teamr">{{i.Team2Img}}{{i.T2}}</span></button>
                             {% endfor %}
                             {% endfor %}
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!--------------------Headlines------------------------>
-            <div class="col-5 shadow-lg bg-white rounded scroll ml">
-                <div class="rca-news-widget rca-padding">
-                    <h3 class="shadow-lg rounded" style="margin-bottom: 16px;background-color: #bc2b27;font-size: 18.75px;">Latest News
-                        Headlines</h3>
-                    {% for k,v in news.items %}
-                    {% for i in v %}
-                    <div class="rca-post">
-                        <h5>
-                            <a href="#"
-                            >{{i.Title}}.
-                            </a>
-                        </h5>
-                        <img src={{i.Image}} height="200px" width="100%">
-                        <h6 class="mt-2">
-                            {{i.Body}}
-                        </h6>
-                        <p class="rca-post-info">at {{i.Time}}</p>
+                <div class="right shadow-lg bg-dark mt-4 mb-4 rounded"
+                     style="background-color:rgba(104, 99, 99, 0.685);">
+                    <h5 class="headlines mt-4">POINT TABLE</h5>
+                    <div class="pointtable p-3">
+                        <div class="pointtables shadow-lg bg-white p-3 mt-4 mb-4 rounded">
+                            <div>
+                                <table>
+                                    <tr>
+                                        <th>S.NO</th>
+                                        <th>TEAMS</th>
+                                        <th>W</th>
+                                        <th>L</th>
+                                        <th>Pts</th>
+                                        <th>Pld</th>
+                                        <th>Draws</th>
+                                    </tr>
+                                    {% for k,v in pointstable.items %}
+                                    {% for i in v %}
+                                    <tr>
+                                        <td>{{i.Count}}</td>
+                                        <td>{{i.Team}}</td>
+                                        <td>{{i.Wins}}</td>
+                                        <td>{{i.Loose}}</td>
+                                        <td>{{i.Points}}</td>
+                                        <td>{{i.Played}}</td>
+                                        <td>{{i.Draws}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    {% endfor %}
+                                </table>
+                            </div>
+                        </div>
                     </div>
-                    {% endfor %}
-                    {% endfor %}
                 </div>
             </div>
-        </div>
-        <!--            Info Ends Here-->
 
-        <!--            Photo Gallery-->
-        <div class="row">
-            <div class="col-12">
-                <h2 style="color: aliceblue;">Photo Gallery</h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-6 scrolling">
-                {% for k,v in Images.items %}
-                {% for i in v %}
-                <img class="shadow-lg bg-white rounded w-100" src={{i.Image}} height="300px" width="100%">
-                {% endfor %}
-                {% endfor %}
-            </div>
-        </div>
-        <!--            Gallery Ends Here-->
+            <div class="section-2">
 
-        <!--            Footer Section -->
-        <div class="rca-row">
-            <div class="rca-column-8">
-                <ul class="rca-footer">
-                    <li><a href="" class="anc">About Us</a></li>
-                    <li><a href="" class="anc">Privacy Policy</a></li>
-                    <li><a href="" class="anc">Feedback</a></li>
-                    <li><a href="" class="anc">Site map</a></li>
-                </ul>
-            </div>
-            <div class="rca-column-4">
-                <ul class="rca-footer rca-right">
-                    <li class="anc">© 2021 <a href="" class="anc">SportsWiki</a>, All rights reserved</li>
-                </ul>
-            </div>
-        </div>
-        <!--            Footer Ends Here-->
+                <div class="gallery shadow-lg bg-dark mt-4 mb-4 rounded">
+                    <h3 class="headlines mt-4">PHOTO GALLERY</h3>
 
+                    <div class="galleryimages">
+                        {% for k,v in Images.items %}
+                        {% for i in v %}
+                        <img class="shadow-lg bg-dark p-5 rounded w-100" src={{i.Image}} height="300px" width="100%">
+                        {% endfor %}
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="stats shadow-lg bg-dark mt-4 mb-4 rounded">
+                    <h3 class="headlines">STATS</h3>
+
+                    <div class="galleryimages">
+                        {% for k,v in stats.items %}
+                        {% for i in v %}
+                        <br><br>
+                        {{i.Score}}<br><br><br><br>
+                        {{i.YellowCards}}<br><br>
+                        {{i.Possession}}<br><br>
+                        {{i.Offside}}<br><br>
+                        {{i.Fouls}}<br><br>
+                        {{i.Corners}}<br><br>
+                        {% endfor %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!--            Footer Section -->
+            <div class="rca-row">
+                <div class="rca-column-8">
+                    <ul class="rca-footer">
+                        <li><a href="" class="anc">About Us</a></li>
+                        <li><a href="" class="anc">Privacy Policy</a></li>
+                        <li><a href="" class="anc">Feedback</a></li>
+                        <li><a href="" class="anc">Site map</a></li>
+                    </ul>
+                </div>
+                <div class="rca-column-4">
+                    <ul class="rca-footer rca-right">
+                        <li class="anc">© 2021 <a href="" class="anc">SportsWiki</a>, All rights reserved</li>
+                    </ul>
+                </div>
+            </div>
+            <!--            Footer Ends Here-->
+
+        </div>
     </div>
-    <!--        Container Ends Here-->
-
 </div>
 </div>
 </body>

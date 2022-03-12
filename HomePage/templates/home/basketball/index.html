@@ -10,7 +10,7 @@
           crossorigin="anonymous">
     <link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'>
     <title>Basketball</title>
-
+    
     <link
             href="http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext"
             rel="stylesheet"
@@ -20,7 +20,13 @@
             rel="stylesheet"
             href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"
     />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="{%static 'home/basketball/index.css' %}">
     <script>
 
@@ -34,7 +40,7 @@
         <!--            Logo -->
         <div class="row">
             <div class="col-12">
-                <div class="rca-logo">
+                <div class="logo">
                     <h2>
                 <span><img src="{%static 'home/basketball/ball-of-basket.jpg' %}" style="width: 50px"/></span
                 ><span style="color: rgb(255, 255, 255);"><b>SportsWiki</b></span>
@@ -43,163 +49,157 @@
             </div>
         </div>
         <div class="grid-container">
-          
-          <div class="left" style="background-color:rgb(16, 16, 16);"><h6> LEAGUES</h6>
-            <div class="leagues">
+            <div class="header">
+              <h2></h2>
+              <div class="leagues">
                 <div class="leaguestypes">
-                    <button type="button" class="btn btn-light mx-4" ><span><img src="{%static 'home/basketball/nba.png' %}">NBA</button></span>
-                    <button type="button" class="btn btn-light mx-4">E<span><img src="{%static 'home/basketball/bba1.png' %}">URO League</button></span>
-                    <button type="button" class="btn btn-light mx-4"><span><img src="{%static 'home/basketball/bba2.png' %}">SPAINS ACB</button></span>
-                    <button type="button" class="btn btn-light mx-4"><span><img src="{%static 'home/basketball/bba1.png' %}">BSL</button></span>
-                    
+                    <button type="button" class="btn btn-light mx-4" ><span><img src="{%static 'home/basketball/nba.png' %}">NBA</span></button>
+                    <button href="button" class="btn btn-light mx-4"><span><img src="{%static 'home/basketball/bb1.png' %}">EURO League</span></button>
+                    <button type="button" class="btn btn-light mx-4"><span><img src="{%static 'home/basketball/bb2.png' %}">SPAINS ACB</span></button>
+                    <button type="button" class="btn btn-light mx-4"><span><img src="{%static 'home/basketball/bb1.png' %}">BSL</span></button>
+                </div>
                 </div>
             </div>
-        
-          </div>
-          <div class="middle" style="background-color:rgb(16, 16, 16);"><h6>LIVE MATCHES</h6>
+            
+            <div class="left" style="background-color:rgba(104, 99, 99, 0.685);">
+                    <h5 class="headlines">NEWS HEADLINES</h5>
+                    
+                    <div class="headlinecontent">
+                      <img src="{%static 'home/basketball/basketball.jpg' %}" width="100%" height="300px"/>
+                  <img src="{%static 'home/basketball/basketball1.jpg' %}" width="100%" height="300px">
+                  </div>
+            </div>
+            <div class="middle" style="background-color:rgba(104, 99, 99, 0.685);">
+                <h5 class="headlines">LIVE MATCHES</h5>
             <div class="match">
                 <div class="livematches">
-                    <button type="button" class="btn btn-light mx-4"><p class="teaml">T1</p> <p class ="teamlbteamr">vs</p> <p class="teamr">T2</p></button>
-                    <button type="button" class="btn btn-light mx-4"><p class="teaml">T1</p> <p class ="teamlbteamr">vs</p> <p class="teamr">T2</p></button>
-                    <button type="button" class="btn btn-light mx-4"><p class="teaml">T1</p> <p class ="teamlbteamr">vs</p> <p class="teamr">T2</p></button>
-                    <button type="button" class="btn btn-light mx-4"><p class="teaml">T1</p> <p class ="teamlbteamr">vs</p> <p class="teamr">T2</p></button>
-                    <button type="button" class="btn btn-light mx-4"><p class="teaml">T1</p> <p class ="teamlbteamr">vs</p> <p class="teamr">T2</p></button>
-                    
-                </div>
-            </div>
-          </div>  
+                    <button type="button" class="btn btn-light mx-4"><span class="teaml">T1</span> <span class ="teamlbteamr">vs</span> <span class="teamr">T2</span></button>
+                    <button type="button" class="btn btn-light mx-4"><span class="teaml">T1</span> <span class ="teamlbteamr">vs</span> <span class="teamr">T2</span></button>
+                    <button type="button" class="btn btn-light mx-4"><span class="teaml">T1</span> <span class ="teamlbteamr">vs</span> <span class="teamr">T2</span></button>
+                    <button type="button" class="btn btn-light mx-4"><span class="teaml">T1</span> <span class ="teamlbteamr">vs</span> <span class="teamr">T2</span></button>
+                    <button type="button" class="btn btn-light mx-4"><span class="teaml">T1</span> <span class ="teamlbteamr">vs</span> <span class="teamr">T2</span></button>
 
-          <div class="right" style="background-color:rgb(16, 16, 16);"><h6>POINT TABLE</h6>
-            <div class="pointtable">
-                <div class="pointtables">
-                    <div style="overflow-x: auto;">
-                        <table>
-                          <tr>
-                            <th>S.NO</th>
-                            <th>TEAMS</th>
-                            <th>W</th>
-                            <th>L</th>
-                            <th>PCT</th>
-                            <th>GB</th>
-                            <th>CON</th>
-                          </tr>
-                          <tr>
-                            <td>1</td>
-                            <td>T1</td>
-                            <td>50</td>
-                            <td>50</td>
-                            <td>50</td>
-                            <td>50</td>
-                            <td>10-5</td>
-                          </tr>
-                          <tr>
-                            <td>2</td>
-                            <td>T2</td>
-                            <td>94</td>
-                            <td>94</td>
-                            <td>94</td>
-                            <td>94</td>
-                            <td>10-5</td>
-                          </tr>
-                          <tr>
-                            <td>3</td>
-                            <td>T3</td>
-                            <td>67</td>
-                            <td>67</td>
-                            <td>67</td>
-                            <td>67</td>
-                            <td>10-5</td>
-                          </tr>
-                          <tr>
-                            <td>4</td>
-                            <td>Johnson</td>
-                            <td>67</td>
-                            <td>67</td>
-                            <td>67</td>
-                            <td>67</td>
-                            <td>10-5</td>
-                          </tr>
-                          <tr>
-                            <td>5</td>
-                            <td>T5</td>
-                            <td>67</td>
-                            <td>67</td>
-                            <td>67</td>
-                            <td>67</td>
-                            <td>10-5</td>
-                          </tr>
-                          <tr>
-                            <td>6</td>
-                            <td>T6</td>
-                            <td>67</td>
-                            <td>67</td>
-                            <td>67</td>
-                            <td>67</td>
-                            <td>10-5</td>
-                          </tr>
-                          <tr>
-                            <td>7</td>
-                            <td>T7</td>
-                            <td>67</td>
-                            <td>67</td>
-                            <td>67</td>
-                            <td>67</td>
-                            <td>10-5</td>
-                          </tr>
-                          <tr>
-                            <td>8</td>
-                            <td>T8</td>
-                            <td>67</td>
-                            <td>67</td>
-                            <td>67</td>
-                            <td>67</td>
-                            <td>10-5</td>
-                          </tr>
-                        </table>
-                      </div>
                 </div>
             </div>
-          </div>
-          
-          <div class="newsheadlines">
-          <p>NEWS HEADLINES</p>
-          <div class="news">
-            <div class="newscolumn">
-                {% for k,v in news.items %}
-                {% for i in v %}
-                <div class="rca-post">
-                    <h5 class="NTT">
-                        <a href="#"
-                        >{{i.Title}}
-                        </a>
-                    </h5>
-                    <img src={{i.Image}} height="200px" width="100%">
-                    <h6 class="mt-2">
-                        {{i.Body}}
-                    </h6>
-                    <p class="rca-post-info">at {{i.Time}}</p>
+            </div>  
+            <div class="right" style="background-color:rgba(104, 99, 99, 0.685);">
+                <h5 class="headlines">POINT TABLE</h5>
+                <div class="pointtable">
+                    <div class="pointtables">
+                        <div style="overflow-x: auto;">
+                            <table>
+                              <tr>
+                                <th>S.NO</th>
+                                <th>TEAMS</th>
+                                <th>W</th>
+                                <th>L</th>
+                                <th>PCT</th>
+                                <th>GB</th>
+                                <th>CON</th>
+                              </tr>
+                              <tr>
+                                <td>1</td>
+                                <td>T1</td>
+                                <td>50</td>
+                                <td>50</td>
+                                <td>50</td>
+                                <td>50</td>
+                                <td>10-5</td>
+                              </tr>
+                              <tr>
+                                <td>2</td>
+                                <td>T2</td>
+                                <td>94</td>
+                                <td>94</td>
+                                <td>94</td>
+                                <td>94</td>
+                                <td>10-5</td>
+                              </tr>
+                              <tr>
+                                <td>3</td>
+                                <td>T3</td>
+                                <td>67</td>
+                                <td>67</td>
+                                <td>67</td>
+                                <td>67</td>
+                                <td>10-5</td>
+                              </tr>
+                              <tr>
+                                <td>4</td>
+                                <td>Johnson</td>
+                                <td>67</td>
+                                <td>67</td>
+                                <td>67</td>
+                                <td>67</td>
+                                <td>10-5</td>
+                              </tr>
+                              <tr>
+                                <td>5</td>
+                                <td>T5</td>
+                                <td>67</td>
+                                <td>67</td>
+                                <td>67</td>
+                                <td>67</td>
+                                <td>10-5</td>
+                              </tr>
+                              <tr>
+                                <td>6</td>
+                                <td>T6</td>
+                                <td>67</td>
+                                <td>67</td>
+                                <td>67</td>
+                                <td>67</td>
+                                <td>10-5</td>
+                              </tr>
+                              <tr>
+                                <td>7</td>
+                                <td>T7</td>
+                                <td>67</td>
+                                <td>67</td>
+                                <td>67</td>
+                                <td>67</td>
+                                <td>10-5</td>
+                              </tr>
+                              <tr>
+                                <td>8</td>
+                                <td>T8</td>
+                                <td>67</td>
+                                <td>67</td>
+                                <td>67</td>
+                                <td>67</td>
+                                <td>10-5</td>
+                              </tr>
+                            </table>
+                          </div>
+                    </div>
                 </div>
-                {% endfor %}
-                {% endfor %}
+            </div>
+            <div class="gallery" style="background-color:rgba(104, 99, 99, 0.685);">
+                <h3 class="headlines">PHOTO GALLERY</h3>
+                
+                <div class="galleryimages">
+                <img src="{%static 'home/basketball/basketball.jpg' %}" width="100%" height="300px"/>
+                <img src="{%static 'home/basketball/basketball1.jpg' %}" width="100%" height="300px">
+                </div>
             </div>
             <div class="footer">
-                <div class="rca-column-8">
-                    <ul class="rca-footer">
-                        <li><a href="" class="anc">About Us</a></li>
-                        <li><a href="" class="anc">Privacy Policy</a></li>
-                        <li><a href="" class="anc">Feedback</a></li>
-                        <li><a href="" class="anc">Site map</a></li>
-                    </ul>
-                </div>
-                <div class="rca-column-4">
-                    <ul class="rca-footer rca-right">
-                        <li class="anc">© 2021 <a href="" class="anc">SportsWiki</a>, All rights reserved</li>
-                    </ul>
-                </div>
+            <div class="rca-column-8">
+            <ul class="rca-footer">
+                <a href="" class="anc">About Us</a>
+                <a href="" class="anc">Privacy Policy</a>
+                <a href="" class="anc">Feedback</a>
+                <a href="" class="anc">Site map</a>
+            </ul>
         </div>
+        <div class="rca-column-4">
+            <ul class="rca-footer rca-right">
+                <li class="anc1">© 2021 <a href="" class="anc">SportsWiki</a>, All rights reserved</li>
+            </ul>
+        </div>
+            </div>
           </div>
         </div>
-        
+        </div>        
 </div>
 </body>
 </html>

@@ -1,194 +1,203 @@
 body {
-    font-family: 'Aclonica';
-    font-size: 14px;
-  }
+  font-family: 'Aclonica';
+  font-size: 14px;
+}
 
-  .containersb{
-    background-image: url(basketball.jpg);
-    height: 100vh;
-    background-repeat: no-repeat;
-    background-size: cover;
-    overflow-y: scroll;
-    color: rgb(236, 236, 246);
-  }
+.containersb{
+  background-image: url(basketballbackground.jpg);
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow-y: scroll;
+  color: rgb(240, 234, 234);
+  background-attachment: fixed;
+}
 
-  .cont{
-    margin :25px;
-      background-color: #0b0b0b00;
-      height: 1325px;
-      padding: 0px 130px;
-   }
+.cont{
+  background-color: #2b27276b;
+  height: 1325px;
+  padding: 0px 100px 100px 100px;
+ }
+
+ ::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+ 
+}
+
+.logo img{
+  border-radius: 50%;
+  margin: 6px;
+  margin-bottom: 0px;
+}
+.header img{
+  border-radius: 50%;
+  margin: 6px;
+  margin-bottom: 0px;
+}
+.header {
+  grid-area: header;
+  background-color: rgba(250, 245, 245, 0.37);;
+  float :left;
+  text-align: center;
+  /*font-size: 35px;*/
+  border-radius: 10px;
+  border: 1px solid black;
+}
+.header button{
+  float : left;
+  margin-bottom: 20px;
+}
+.header button:hover{
+  background-color: grey;
+}
+/*.leaguestypes button
+{
+  float:left;
+  margin:5px;
+}*/
+/* The grid container */
+.grid-container {
+  margin :5px;
+  display: grid;
+  grid-template-areas: 
+    'header header header header header header' 
+    'left left middle middle right right' 
+    'gallery gallery gallery gallery gallery gallery'
+    'footer footer footer footer footer footer';
+    
+  /* grid-column-gap: 10px; - if you want gap between the columns */
+} 
+
+.left,
+.middle,
+.right,.gallery {
+  margin-top:5px;
+  margin-bottom: 5px;
+  padding: 10px;
+  width: auto;
+  height: 450px; 
+  border-radius: 10px;
+  overflow-y:scroll;
+}
 
 
-  * {
-    margin: 0;
-    padding: 0;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+.left {
+  grid-area: left;
+  margin-right: 5px;
+  text-align: center;
+  width:350px;
+}
 
-  }
 
-  img{
-    border-radius: 50%;
-    margin: 6px;
-    margin-bottom: 0px;
-  }
-  .grid-container {
-    display: grid;
-    size:0ch;
-    grid-template-areas:
-      'header header header header header header'
-      'left left middle middle right right'
-      'footer footer footer footer footer footer';
-      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    grid-column-gap: 10px;
-  }
+.middle {
+  grid-area: middle;
+  margin-right: 5px;
+  text-align: center;
+  overflow-y:scroll;
+  text-emphasis-position: fixed;
+  width:350px;
+}
 
-  .left,
-  .middle,
-  .right {
-    padding: 30px 30px 30px 0px;
-    margin-top: 15px;
-    margin-bottom:15px;
-    opacity:0.7;
-    text-align: center;
-    border-radius: 3%;
-  }
-
-  /* Style the left column */
-  .left {
-    grid-area: left;
-
-  }
-
-  /* Style the middle column */
-  .middle {
-    grid-area: middle;
-
-  }
-
-  /* Style the right column */
-  .right {
-    grid-area: right;
-    padding: 30px;
-  }
-  .leagues
-  {
-    padding: 10px;
-    align-items: left;
-  }
-  .match{
-    padding: 10px;
-    align-items: left;
-  }
-  .leagues .leaguestypes button
-  {
-    margin:5px;
-    /*display: block;*/
-    color:black;
-    width: 100%;
-  }
-  .match .livematches button
-  {
-    margin:3px;
-    /*display: block;*/
-    color:black;
-    width: 100%;
-  }
-  .teamlbteamr{
-    display:inline;
-    background-color: rgb(244, 120, 19);;
-    border-radius: 3px;
-    padding: 2px;
-  }
-  .leagues .leaguestypes  button span img
-  {
-    widht:20px;
-    height:20px;
-    text-align: center;
-    float:left;
-  }
-  .pointable .pointables
-  {
-    width:50%;
-    height:100%;
-    text-align: justify;
-   text-overflow: hidden;
-  }
-  table {
-    border-collapse: collapse;
-    width: 100%;
-    margin-top: 20px;
-  }
-
-  th, td {
-    margin-right: 2px;
-    text-align: left;
-    padding: 5px;
-  }
-
-  tr:nth-child(even) {background-color: #f2f2f2;}
-  tr:nth-child(odd) {background-color: rgb(244, 120, 19);;}
-  .teaml{
-    float: left;
-    background-color: white;
-    padding:0px;
-  }
-  .teamr
-  {
-    float:right;
-    background-color: white;
-    padding:0px;
-  }
-  /* Style the footer */
-  .newsheadlines {
-    grid-area: footer;
-    background-color: rgb(16, 16, 16);;
-    opacity:0.9;
-    padding: 10px;
-    color:black;
-    text-align: center;
-    display: inline;
-  }
-  .newsheadlines p{
-    border: 3px solid rgb(244, 120, 19);
-    background-color:rgb(244, 120, 19);
-    opacity: 1;
-    text-align: center;
-    text-size-adjust: 45px;
-  }
-  .col-5{
-      display: block;
-  }
-  .NTT{
-      color:black;
-      overflow-y: auto;
-      width:100%;
-  }
-  .news{
-      background-color: rgb(17, 16, 16);
+.right {
+  grid-area: right;
+  text-align: center;
+  width:350px;
+  padding: 3px;
+}
+.gallery{
+  grid-area: gallery;
+  padding:10px;
+  border-radius: 10px;
+  text-align: center;
+  width:350px;
+}
+.livematches button{
+display:block;
+margin:10px;
+width:88%;
+}
+.livematches button:hover{
+  background-color: grey;
+}
+.teamr,.teaml
+{
+  display:block;
+}
+.footer {
+  grid-area: footer;
+  padding: 10px;
+  text-align: center;
+ color:white;
+}
+.anc
+{
+  
+  float: left;
+  color: white;
+  margin-right: 15px;
+}
+.anc1
+{
+  display: block;
+  color: white;
+  margin-right: 3px;
+}
+.headlines{
+  position: relative;
+  border-bottom:5px solid black;
+  border-width:100%;
+}
+.headlinescontent{
+  object-fit: cover;
+  border-radius: 0%;
+  width:100%;
+  height: 500px;
+}
+.galleryimges{
+  object-fit: cover;
+  border-radius: 0%;
+  width:100%;
+  height: 500px;
+}
+table{
+      text-align: center;
+      margin: 3px;
       color:white;
-  }
+      
+}
+tr{
+  border:collapse;
+  border-bottom: 1px solid black;
+  border-spacing: 4px;
+}
 
-  .newscolumn{
-    padding:50px;
-      width:100%;
+th, td {
+  width:150px;
+  text-align:center;
+  border:1px solid black;
+  padding:5px;
+
+}
+tr:hover{
+  background-color: grey;
+}
+@media (max-width: 990px) {
+  .grid-container  {
+    grid-template-areas: 
+      'header header header header header header' 
+      'left left left left left left' 
+      'middle middle middle middle middle middle' 
+      'right right right right right right'
+      'gallery gallery gallery gallery gallery gallery' 
+      'footer footer footer footer footer footer';
   }
-  .newscolumn img{
-      border-radius: 5px;
-  }
-  .footer .rca-column-8 .rca-footer li{
-    margin :20px;
-    display: inline;
-  }
-  @media (max-width: 500px) {
-    .grid-container  {
-      grid-template-areas:
-        'header header header header header header'
-        'left left left left left left'
-        'middle middle middle middle middle middle'
-        'right right right right right right'
-        'footer footer footer footer footer footer';
-    }
-  }
+}

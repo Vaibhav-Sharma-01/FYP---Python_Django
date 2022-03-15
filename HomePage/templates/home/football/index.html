@@ -158,16 +158,16 @@
                 <div class="stats shadow-lg bg-dark mt-4 mb-4 rounded">
                     <h3 class="headlines">STATS</h3>
 
-                    <div class="galleryimages">
+                    <div class="black shadow-lg bg-white p-5 m-5 rounded">
                         {% for k,v in stats.items %}
                         {% for i in v %}
-                        <br><br>
-                        {{i.Score}}<br><br><br><br>
-                        {{i.YellowCards}}<br><br>
-                        {{i.Possession}}<br><br>
-                        {{i.Offside}}<br><br>
-                        {{i.Fouls}}<br><br>
-                        {{i.Corners}}<br><br>
+                        <p><span class="leftside">{{i.Team}}</span><span>:</span><span class="rightside">{{i.Team2}}</span></p>
+                        <p><span class="leftside">{{i.Score}}</span><span>:</span><span class="rightside">{{i.Score2}}</span></p>
+                        <p><span class="leftside">{{i.YellowCards}}</span><span>YellowCards</span><span class="rightside">{{i.YellowCards2}}</span></p>
+                        <p><span class="leftside">{{i.Possession}}</span><span>Possession</span><span class="rightside">{{i.Possession2}}</span></p>
+                        <p><span class="leftside">{{i.Offside}}</span><span>Offside</span><span class="rightside">{{i.Offside2}}</span></p>
+                        <p><span class="leftside">{{i.Fouls}}</span><span>Fouls</span><span class="rightside">{{i.Fouls2}}</span></p>
+                        <p><span class="leftside">{{i.Corners}}</span><span>Corners</span><span class="rightside">{{i.Corners2}}</span></p>
                         {% endfor %}
                         {% endfor %}
                     </div>

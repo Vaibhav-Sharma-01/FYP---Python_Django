@@ -382,12 +382,21 @@ def findex(request):
         res = response.json()
         # Stats Data
         Stats.append({
-            'Score': res['Tr1'] + " : " + res['Tr2'],
-            'Possession': str(res['Stat'][0]['Pss']) + " Possession " + str(res['Stat'][1]['Pss']),
-            'Offside': str(res['Stat'][0]['Ofs']) + " OffSide " + str(res['Stat'][1]['Ofs']),
-            'Fouls': str(res['Stat'][0]['Fls']) + " Fouls " + str(res['Stat'][1]['Fls']),
-            'Corners': str(res['Stat'][0]['Cos']) + " Corners " + str(res['Stat'][1]['Cos']),
-            'YellowCards': str(res['Stat'][0]['Ycs']) + " Yellow Cards " + str(res['Stat'][1]['Ycs'])})
+            'Score': res['Tr1'],
+            # 'Team': res['T1']['Nm'],
+            'Possession': res['Stat'][0]['Pss'],
+            'Offside': res['Stat'][0]['Ofs'],
+            'Fouls': res['Stat'][0]['Fls'],
+            'Corners': res['Stat'][0]['Cos'],
+            'YellowCards': res['Stat'][0]['Ycs'],
+            'Score2': res['Tr2'],
+            # 'Team2': res['T2']['Nm'],
+            'Possession2': res['Stat'][1]['Pss'],
+            'Offside2': res['Stat'][1]['Ofs'],
+            'Fouls2': res['Stat'][1]['Fls'],
+            'Corners2': res['Stat'][1]['Cos'],
+            'YellowCards2': res['Stat'][1]['Ycs']
+        })
     statsdata.__setitem__("stats", Stats)
 
     # Stats Details Ends Here
@@ -418,7 +427,6 @@ def findex(request):
 
     return render(request, 'home/football/index.html',
                   {'stats': statsdata, 'pointstable': ptable, 'live': liveteams, 'news': News, 'Images': Image, 'past': datadi})
-
 def GetSoccerLiveMatches():
     url = "https://livescore6.p.rapidapi.com/matches/v2/list-live"
     querystring = {"Category": "soccer"}

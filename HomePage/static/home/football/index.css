@@ -182,3 +182,19 @@ th, td {
 tr:hover{
   background-color: grey;
 }
+
+.leftside{
+float: left;
+width: 30%;
+margin-left: 1%;
+}
+
+.black{
+color: black;
+}
+
+.rightside{
+float: right;
+width: 30%;
+margin-left: 1%;
+}

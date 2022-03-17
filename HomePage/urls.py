@@ -53,4 +53,7 @@ urlpatterns = [
     re_path('/basketball/widget', TemplateView.as_view(template_name="home/basketball/widgets.html"),
             name='bwidget'),
 
+    re_path('/games/trivia', TemplateView.as_view(template_name="home/games/trivia.html"),
+            name='trivia'),
+
 ]

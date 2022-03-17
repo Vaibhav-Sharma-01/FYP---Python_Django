@@ -1,203 +1,233 @@
-body {
-  font-family: 'Aclonica';
-  font-size: 14px;
+*{
+    margin:0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+img{
+    border-radius: 50%;
+    margin: 6px;
+    margin-bottom: 0px;
+  }
+body{
+    background-color: black;
+    font-family: 'Aclonica';
+    font-size: 15px;
+}
+::-webkit-scrollbar{
+    display: none;
+}
+.header{
+    grid-area:header;
+    width:100%;
+    background-color: black;
+    color:rgb(8, 8, 8);
+    padding:10px;
+    margin-bottom: 10px;
+}
+.main{
+    display:grid;
+    grid-template-areas:'header header header header header header'
+                        'left right right right right right'   
+                        'left footer footer footer footer footer';
+    margin:45px;
+                    }
+.heading{
+    text-align: left;
+    margin:8px;
+    padding:5px;
+    background-color: rgb(214, 21, 21);
+    width:auto;
+    color:rgb(22, 20, 20);
+    border-radius: 5px;
+    position:absolute;
+}
+.right{
+    width:100%;
+    grid-area: right;
+    background-color: black;
+    color:white;
+    height:840px;
+    border-radius: 15px;
+    margin-left:9px;
+}
+.left{
+    
+
+    grid-area: left;
+    background-color:black;
+    width:100%;
+    color:white;
+    border-radius: 5px;
+    margin-right: 9px;
+   
+}
+.livematches{
+    display:inline-flexbox;
+    width:auto;
+    background-color:black;
+    border-radius: 15px;
+    height:200px;
+    text-align: center;
+    overflow: scroll;
+    border:1.9px solid white;
+    box-shadow: 0 4px 8px 0 rgba(49, 39, 39, 0.2);
+}
+.text{
+    border-left: 5px solid rgb(187, 183, 183);
+    margin-top: 55px;
+    word-spacing: 5px;
+}
+.teamspointable{
+    float:left;
+    width:65%;
+    background-color:black;
+    border-radius: 15px;
+    color:white;
+    height:100%;
+    text-align: center;
+    overflow: scroll;
+    box-shadow: 5px 5px 5px 5px rgba(15, 15, 15, 0.2);
+    border:1.9px solid white;
 }
 
-.containersb{
-  background-image: url(basketballbackground.jpg);
-  height: 100vh;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  overflow-y: scroll;
-  color: rgb(240, 234, 234);
-  background-attachment: fixed;
+.team1{
+    width:33%;
+    float: left;
+    background-color:black;
+    border-radius: 15px;
+    height:48%;
+    margin-left: 10px;
+    border:1.9px solid white;
+    text-align: center;
+    overflow: scroll;
+    margin-bottom: 10px;
+    box-shadow: 5px 5px 5px 5px rgba(15, 15, 15, 0.2);
 }
-
-.cont{
-  background-color: #2b27276b;
-  height: 1325px;
-  padding: 0px 100px 100px 100px;
- }
-
- ::-webkit-scrollbar {
-  display: none;
+.team2{
+    width:33%;
+    float:right;
+   
+    background-color:black;
+    border:1.9px solid white;
+    border-radius: 15px;
+    height:49%;
+    text-align: center;
+    overflow: scroll;
+    box-shadow: 5px 5px 5px 5px rgba(14, 11, 11, 0.2);
 }
-
-* {
-  margin: 0;
-  padding: 0;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+table,tr,th{
+    margin-top:90px;
+      border:collapse;
+      color:white;
+      padding:15px auto;   
+      margin-left:10px;
+      margin-right:10px;   
+}
+th{
+    text-align: center;
+    width:6%;
+    border-top-left-radius: 1px;
+    position: relative;
+}
+td{text-align: center;}
+tr{
+    border: 1.9px solid white;
+    height:40px;
  
 }
 
-.logo img{
-  border-radius: 50%;
-  margin: 6px;
-  margin-bottom: 0px;
+.btables{
+    margin-top:65px;
+    border:1.9px solid white;
+    margin-left:10px;
+    margin-right: 10px;
+    width:90%;
+    height:auto;
 }
-.header img{
-  border-radius: 50%;
-  margin: 6px;
-  margin-bottom: 0px;
+.stats{
+    margin-top: 10px;
+    width:auto;
+    background-color:black;
+    border-radius: 15px;
+    height:350px;
+    text-align: center;
+    overflow: scroll;
+    box-shadow: 0 15px 15px 0 rgba(15, 15, 15, 0.2);
+    border:1.9px solid white;
 }
-.header {
-  grid-area: header;
-  background-color: rgba(250, 245, 245, 0.37);;
-  float :left;
-  text-align: center;
-  /*font-size: 35px;*/
-  border-radius: 10px;
-  border: 1px solid black;
+.newsheadlines{
+    margin-top: 10px;
+    width:auto;
+    background-color:black;
+    border-radius: 15px;
+    height:350px;
+    text-align: center;
+    overflow: scroll;
+    box-shadow: 0 15px 15px 0 rgba(15, 15, 15, 0.2);
+    border:1.9px solid white;   
 }
-.header button{
-  float : left;
-  margin-bottom: 20px;
+.footer{
+    width:100%;
+    grid-area:footer;
+    background-color: black;
+    height:25px;
+    border-radius: 5px;
+    margin:10px 0px;
+    color:white;
 }
-.header button:hover{
-  background-color: grey;
+ul li{
+    display: inline;
+    margin:15px;
+    color:white;
 }
-/*.leaguestypes button
-{
-  float:left;
-  margin:5px;
-}*/
-/* The grid container */
-.grid-container {
-  margin :5px;
-  display: grid;
-  grid-template-areas: 
-    'header header header header header header' 
-    'left left middle middle right right' 
-    'gallery gallery gallery gallery gallery gallery'
-    'footer footer footer footer footer footer';
-    
-  /* grid-column-gap: 10px; - if you want gap between the columns */
-} 
-
-.left,
-.middle,
-.right,.gallery {
-  margin-top:5px;
-  margin-bottom: 5px;
-  padding: 10px;
-  width: auto;
-  height: 450px; 
-  border-radius: 10px;
-  overflow-y:scroll;
+@media screen and (max-width:1120px){
+    .main{
+        display: grid;
+        grid-template-areas:'header header header header header header'
+                        'left left left left left left'   
+                        'right right right right right right'
+                        'footer footer footer footer footer footer';
+    margin:45px;
+    }
+    .right{
+        margin-top: 10px;
+    }
 }
-
-
-.left {
-  grid-area: left;
-  margin-right: 5px;
-  text-align: center;
-  width:350px;
-}
-
-
-.middle {
-  grid-area: middle;
-  margin-right: 5px;
-  text-align: center;
-  overflow-y:scroll;
-  text-emphasis-position: fixed;
-  width:350px;
-}
-
-.right {
-  grid-area: right;
-  text-align: center;
-  width:350px;
-  padding: 3px;
-}
-.gallery{
-  grid-area: gallery;
-  padding:10px;
-  border-radius: 10px;
-  text-align: center;
-  width:350px;
-}
-.livematches button{
-display:block;
-margin:10px;
-width:88%;
-}
-.livematches button:hover{
-  background-color: grey;
-}
-.teamr,.teaml
-{
-  display:block;
-}
-.footer {
-  grid-area: footer;
-  padding: 10px;
-  text-align: center;
- color:white;
-}
-.anc
-{
-  
-  float: left;
-  color: white;
-  margin-right: 15px;
-}
-.anc1
-{
-  display: block;
-  color: white;
-  margin-right: 3px;
-}
-.headlines{
-  position: relative;
-  border-bottom:5px solid black;
-  border-width:100%;
-}
-.headlinescontent{
-  object-fit: cover;
-  border-radius: 0%;
-  width:100%;
-  height: 500px;
-}
-.galleryimges{
-  object-fit: cover;
-  border-radius: 0%;
-  width:100%;
-  height: 500px;
-}
-table{
-      text-align: center;
-      margin: 3px;
-      color:white;
-      
-}
-tr{
-  border:collapse;
-  border-bottom: 1px solid black;
-  border-spacing: 4px;
-}
-
-th, td {
-  width:150px;
-  text-align:center;
-  border:1px solid black;
-  padding:5px;
-
-}
-tr:hover{
-  background-color: grey;
-}
-@media (max-width: 990px) {
-  .grid-container  {
-    grid-template-areas: 
-      'header header header header header header' 
-      'left left left left left left' 
-      'middle middle middle middle middle middle' 
-      'right right right right right right'
-      'gallery gallery gallery gallery gallery gallery' 
-      'footer footer footer footer footer footer';
-  }
+@media screen and (max-width:770px){
+    .main{
+        display: grid;
+        grid-template-areas:'header header header header header header'
+                        'left left left left left left'   
+                        'right right right right right right'
+                        'footer footer footer footer footer footer';                
+    margin:10px;
+    }
+    .right{
+        margin-top:10px;
+        width:100%;
+        padding:0px;
+    }
+    .teamspointable{
+        width:100%;
+        height:auto;
+    }
+    .team1{
+        display: block;
+        float:left;
+        width:100%;
+        height:auto;
+        margin-top: 10px;
+        margin-right: 9px;
+        float:right;
+    }
+    .team2{
+        display:block;
+        width:100%;
+        height:auto;
+        margin-top: 10px;
+        margin-right: 9px;
+    }
+    .footer{
+        margin-top: 85vh;
+    }
 }

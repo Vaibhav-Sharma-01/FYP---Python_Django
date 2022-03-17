@@ -427,6 +427,7 @@ def findex(request):
 
     return render(request, 'home/football/index.html',
                   {'stats': statsdata, 'pointstable': ptable, 'live': liveteams, 'news': News, 'Images': Image, 'past': datadi})
+
 def GetSoccerLiveMatches():
     url = "https://livescore6.p.rapidapi.com/matches/v2/list-live"
     querystring = {"Category": "soccer"}
@@ -520,15 +521,120 @@ def SoccerMatchesToday():
 
 
 def bindex(request):
-    Eids = GetSoccerLiveMatches()
-    News = GetLatestSoccerNews()
-    Image = SoccerGallery()
+    Eids = GetBasketballMatchesByLeague('nba')
+    News = GetLatestBasketballNews()
+    Image = BasketballGallery()
     url = "https://livescore6.p.rapidapi.com/matches/v2/detail"
+    data1 = {}
+    datas1 = []
+    data2 = {}
+    datas2 = []
+    NBATeamsdic = {}
+    NBATeamsList = []
+    NBAStatsdic = {}
+    NBAStatsList = []
     for i in Eids:
-        querystring = {"Eid": i, "Category": "soccer", "LiveTable": "true"}
+        querystring = {"Eid": i, "Category": "basketball", "LiveTable": "true"}
         response = requests.request("GET", url, headers=headers, params=querystring)
         res = response.json()
-    return render(request, 'home/basketball/index.html', {'news': News, 'Images': Image})
+        Tr1 = res['Tr1']
+        Tr2 = res['Tr2']
+        if('Tr1Q1' in res.keys()):
+            Tr1Q1 = res['Tr1Q1']
+        else:
+            Tr1Q1 = 0
+        if('Tr1Q2' in res.keys()):
+            Tr1Q2 = res['Tr1Q2']
+        else:
+            Tr1Q2 = 0
+        if('Tr1Q3' in res.keys()):
+            Tr1Q3 = res['Tr1Q3']
+        else:
+            Tr1Q3 = 0
+        if('Tr1Q4' in res.keys()):
+            Tr1Q4 = res['Tr1Q4']
+        else:
+            Tr1Q4 = 0
+        if('Tr2Q1' in res.keys()):
+            Tr2Q1 = res['Tr2Q1']
+        else:
+            Tr2Q1 = 0
+        if('Tr2Q2' in res.keys()):
+            Tr2Q2 = res['Tr2Q2']
+        else:
+            Tr2Q2 = 0
+        if('Tr2Q3' in res.keys()):
+            Tr2Q3 = res['Tr2Q3']
+        else:
+            Tr2Q3 = 0
+        if('Tr2Q4' in res.keys()):
+            Tr2Q4 = res['Tr2Q4']
+        else:
+            Tr2Q4 = 0
+
+        NBAStatsList.append({
+            'T1Q1': Tr1Q1,
+            'T1Q2': Tr1Q2,
+            'T1Q3': Tr1Q3,
+            'T1Q4': Tr1Q4,
+            'T2Q1': Tr2Q1,
+            'T2Q2': Tr2Q2,
+            'T2Q3': Tr2Q3,
+            'T2Q4': Tr2Q4,
+        })
+        NBAStatsdic.__setitem__('Stats', NBAStatsList)
+        Team1 = res['T1'][0]['Nm']
+        Team2 = res['T2'][0]['Nm']
+        Dates = str(res['Esd'])
+        Year = Dates[0:4]
+        Month = Dates[4:6]
+        Datet = Dates[6:8]
+        Date = Datet + "-" + Month + "-" + Year
+        League = res['Stg']['Snm']
+        NBATeamsList.append({
+            'Team1Score': Tr1,
+            'Team2Score': Tr2,
+            'Team1Name': Team1,
+            'Team2Name': Team2,
+            'Date': Date,
+            'League': League
+        })
+        NBATeamsdic.__setitem__("Listing", NBATeamsList)
+        if('Lu' in res.keys()):
+            Team1Details = res['Lu'][0]['Ps']
+            Team2Details = res['Lu'][1]['Ps']
+            for j in Team1Details:
+                PlayerName = j['Snm']
+                Status = j['Pon']
+                if('Snu' in j.keys()):
+                    PlayerNo = j['Snu']
+                else:
+                    PlayerNo = "NA"
+                datas1.append({
+                    "PlayerName": PlayerName,
+                    "Status": Status,
+                    "PlayerNo": PlayerNo
+                })
+            for j in Team2Details:
+                PlayerName = j['Snm']
+                Status = j['Pon']
+                if('Snu' in j.keys()):
+                    PlayerNo = j['Snu']
+                else:
+                    PlayerNo = "NA"
+                datas2.append({
+                    "PlayerName": PlayerName,
+                    "Status": Status,
+                    "PlayerNo": PlayerNo
+                })
+
+
+    data1.__setitem__("Team1", datas1)
+    data2.__setitem__("Team2", datas2)
+
+    print(NBAStatsdic)
+
+    return render(request, 'home/basketball/index.html', {'Stats':NBAStatsdic ,'NBATeamDets':NBATeamsdic ,'team1details': data1, 'team2details': data2 ,'news': News, 'Images': Image})
 
 def GetBasketballLiveMatches():
     url = "https://livescore6.p.rapidapi.com/matches/v2/list-live"
@@ -536,7 +642,6 @@ def GetBasketballLiveMatches():
     response = requests.request("GET", url, headers=headers, params=querystring)
     res = response.json()
     Eid = []
-    print(res)
     for i in res['Stages']:
         Eid.append(i['Events'][0]['Eid'])
     return Eid
@@ -550,3 +655,67 @@ def GetBasketbllMatchesByDate(Date):
     for i in res['Stages']:
         Eid.append(i['Events'][0]['Eid'])
     return Eid
+
+def GetBasketballMatchDetailsByLeague(league):
+    url = "https://livescore6.p.rapidapi.com/matches/v2/list-by-league"
+
+    querystring = {"Category": "basketball", "Ccd": league}
+    response = requests.request("GET", url, headers=headers, params=querystring)
+    res = response.json()
+    return res['Stages'][0]['LeagueTable']['L'][0]['Tables'][0]['team']
+
+def GetBasketballMatchesByLeague(league):
+    url = "https://livescore6.p.rapidapi.com/matches/v2/list-by-league"
+
+    querystring = {"Category": "basketball", "Ccd": league}
+    response = requests.request("GET", url, headers=headers, params=querystring)
+    res = response.json()
+    Eid = []
+    for i in res['Stages']:
+        Eid.append(i['Events'][0]['Eid'])
+    return Eid
+
+    # for i in res['Stages']:
+    #     for j in i['Events']:
+    #         Eid.append(j['Eid'])
+
+def GetLatestBasketballNews():
+    url = "https://livescore6.p.rapidapi.com/news/v2/list-by-sport"
+    querystring = {"category": "2021020913321516170", "page": "1"}
+    response = requests.request("GET", url, headers=headers, params=querystring)
+    data = response.json()['data']
+    news = []
+    newss = {}
+    for i in data:
+        news.append({
+            'Title': i['title'],
+            'Time': i['published_at'],
+            'Body': i['body'][2]['data']['content'].replace("</p>", "").replace("<p>", ""),
+            'Image': i['image']['data']['urls']['uploaded']['gallery']
+        })
+    newss.__setitem__("news", news)
+    return newss
+
+def BasketballGallery():
+    url = "https://livescore6.p.rapidapi.com/news/v2/list-by-sport"
+    querystring = {"category": "2021020913321516170", "page": "1"}
+    response = requests.request("GET", url, headers=headers, params=querystring)
+    data = response.json()['data']
+    Image = []
+    Images = {}
+    for i in data:
+        Image.append({
+            'Image': i['image']['data']['urls']['uploaded']['gallery']
+        })
+    Images.__setitem__("img", Image)
+    return Images
+
+def UpcomingBasketballMatches():
+    presentday = datetime.now()
+    tomorrow = presentday + timedelta(1)
+    return tomorrow.strftime('%Y%m%d')
+
+def PastBasketballMatches():
+    presentday = datetime.now()
+    yesterday = presentday - timedelta(1)
+    return yesterday.strftime('%Y%m%d')

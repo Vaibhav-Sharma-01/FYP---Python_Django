@@ -25,33 +25,18 @@ urlpatterns = [
 
     path('/football/index', views.findex, name='findex'),
 
-    path('/football/widget', views.widgets, name='fwidgets'),
-
-    path('/football/main', views.Main, name='fmain'),
-
     re_path('/football/index', TemplateView.as_view(template_name="home/football/index.html"),
             name='findex'),
 
-    re_path('/football/main', TemplateView.as_view(template_name="home/football/main.html"),
-            name='fmain'),
-
-    re_path('/football/widget', TemplateView.as_view(template_name="home/football/widgets.html"),
-            name='fwidget'),
-
     path('/basketball/index', views.bindex, name='bindex'),
-
-    path('/basketball/main', views.Main, name='bmain'),
-
-    path('/basketball/widget', views.widgets, name='bwidgets'),
 
     re_path('/basketball/index', TemplateView.as_view(template_name="home/basketball/index.html"),
             name='bindex'),
 
-    re_path('/basketball/main', TemplateView.as_view(template_name="home/basketball/main.html"),
-            name='bmain'),
+    re_path('/games/home', TemplateView.as_view(template_name="home/games/home.html"),
+            name='home'),
 
-    re_path('/basketball/widget', TemplateView.as_view(template_name="home/basketball/widgets.html"),
-            name='bwidget'),
+    path('/games/trivia', views.triviaindex, name='triviaindex'),
 
     re_path('/games/trivia', TemplateView.as_view(template_name="home/games/trivia.html"),
             name='trivia'),

@@ -2,20 +2,154 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" type="text/css" href="{%static 'home/games/trivia1.css' %}">
-    <link rel="stylesheet" type="text/css" href="{%static 'home/games/trivia2.css' %}">
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,900&display=swap" rel="stylesheet">
-    <title>Sport Trivia</title>
-
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link
+            rel="stylesheet"
+            type="text/css"
+            href="{%static 'home/games/trivia.css' %}"
+    />
+    <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+            integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+            crossorigin="anonymous"
+    />
+    <link
+            href="https://fonts.googleapis.com/css?family=Aclonica"
+            rel="stylesheet"
+    />
+    <title>TRIVIA</title>
 </head>
 <body>
-    <main id="container">
-
-    </main>
-
+<div class="containers">
+    <div class="main shadow-lg round bg-white">
+        {% for k,v in questions.items %}
+        {% for i in v %}
+        <div id={{i.index}}>
+            <div class="row">
+                <div class="col-3">
+                    <p id="time">15</p>
+                </div>
+                <div class="col-9">
+                    <div class="row">
+                        <div class="col-12">QUESTION {{i.index}} OF 10</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <progress class="w-100" value={{i.percent}} max="100"></progress>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-12 border p-3 round question">
+                    <h5>
+                        {{i.Question}}
+                    </h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="width-adj">
+                    <button id={{i.Option1}} onclick="data(this)" type="button" class="w-100 btn btn-outline-info">
+                        {{i.Option1}}
+                    </button>
+                </div>
+                <div class="width-adj">
+                    <button id={{i.Option3}} onclick="data(this)" type="button" class="w-100 btn btn-outline-info">
+                        {{i.Option3}}
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="width-adj">
+                    <button id={{i.Option2}} onclick="data(this)" type="button" class="w-100 btn btn-outline-info">
+                        {{i.Option2}}
+                    </button>
+                </div>
+                <div class="width-adj">
+                    <button id={{i.Option4}} onclick="data(this)" type="button" class="w-100 btn btn-outline-info">
+                        {{i.Option4}}
+                    </button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endfor %}
+        <div class="row">
+            <div class="p-2 w-100">
+                <button id="btnext" onclick="mybtn()" type="button" class="w-100 btn btn-outline-success">
+                    Next
+                </button>
+                <button id="btsubmit" onclick="submit()" type="submit" class="w-100 btn btn-outline-success">
+                    Submit
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
-<script src="{%static 'home/games/trivia.js' %}"></script>
+<script type="text/javascript">
+
+    var countDownDate = new Date().getTime()+16000;
+    var x = setInterval(function() {
+    var now = new Date().getTime();
+    var distance = countDownDate - now;
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    document.getElementById("time").innerHTML = seconds;
+    if (distance < 0) {
+        clearInterval(x);
+        document.getElementById('time').id = 'div2';
+        document.getElementById("div2").innerHTML = "0";
+        document.getElementById("btnext").click();
+      }
+    }, 1000);
+    let a = "";
+    let cov = "{{Ans}}";
+
+    for(let i=2;i<=10;i++){
+        document.getElementById(i).style.display = "none";
+    }
+    let ans = JSON.parse(cov.replace(/&quot;/g,'"'));
+    let status = "";
+    let mainscore = 0;
+
+
+    function data(e){
+    console.log(typeof(e.id))
+        for(let i = 0; i<10;i++){
+            if(e.id.localeCompare(ans.question[i].Correct.split(" ")[0])==0){
+                status="correct";
+                break;
+            }else{
+                status = "incorrect";
+            }
+        }
+    }
+
+    var count = 1
+    function mybtn(){
+        var countDownDate = new Date().getTime()+16000;
+        var x = setInterval(function() {
+        var now = new Date().getTime();
+        var distance = countDownDate - now;
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        document.getElementById("time").innerHTML = seconds;
+        if (distance < 0) {
+            clearInterval(x);
+            document.getElementById('time').id = 'div2';
+            document.getElementById("div2").innerHTML = "0";
+            document.getElementById("btnext").click();
+          }
+        }, 1000);
+        if(status == "correct"){
+            mainscore+= 1
+        }
+        document.getElementById(count).style.display = "none";
+        document.getElementById(count+1).style.display = "block";
+        count+=1;
+    }
+
+</script>
 </html>

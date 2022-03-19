@@ -1,6 +1,8 @@
+import random
 from django.shortcuts import render
 import requests
 from datetime import datetime, timedelta
+from json import dumps
 
 Eids = []
 
@@ -9,6 +11,7 @@ headers = {
     'x-rapidapi-key': "2f7d4e24b8msh1eca7845910287cp1caff8jsnc9bd026ddb82"
 }
 
+
 # headers = {
 #     'x-rapidapi-host': "livescore6.p.rapidapi.com",
 #     'x-rapidapi-key': "179f92de74msh12ff1e0eeed7f88p15465djsn09f3cb5c5863"
@@ -16,6 +19,7 @@ headers = {
 
 def home(request):
     return render(request, 'home/HomePage.html')
+
 
 def index(request):
     News = GetLatestCricketNews()
@@ -52,6 +56,7 @@ def index(request):
     data.__setitem__(length, datas)
 
     return render(request, 'home/cricket/index.html', {'data': data, 'news': News, 'MatchInfo': Team, 'Images': Image})
+
 
 def widgets(request):
     # Upcoming Date
@@ -194,6 +199,7 @@ def widgets(request):
     return render(request, 'home/cricket/widgets.html',
                   {'data': data, 'upcoming': datadic, 'past': datadi, "MBD": datedata, "Live": Livedata})
 
+
 def Main(request):
     # Storing Eid from Index.html in session
     if (request.POST.get('match') != None):
@@ -252,6 +258,7 @@ def Main(request):
     print(data)
     return render(request, 'home/cricket/main.html', {'data': data})
 
+
 def GetCricketLiveMatches():
     url = "https://livescore6.p.rapidapi.com/matches/v2/list-live"
     querystring = {"Category": "cricket"}
@@ -263,6 +270,7 @@ def GetCricketLiveMatches():
         Eid.append(i['Events'][0]['Eid'])
     return Eid
 
+
 def GetCricketMatchesByDate(Date):
     url = "https://livescore6.p.rapidapi.com/matches/v2/list-by-date"
     querystring = {"Category": "cricket", "Date": Date}
@@ -272,6 +280,7 @@ def GetCricketMatchesByDate(Date):
     for i in res['Stages']:
         Eid.append(i['Events'][0]['Eid'])
     return Eid
+
 
 def GetLatestCricketNews():
     url = "https://livescore6.p.rapidapi.com/news/v2/list-by-sport"
@@ -290,6 +299,7 @@ def GetLatestCricketNews():
     newss.__setitem__("news", news)
     return newss
 
+
 def CricketGallery():
     url = "https://livescore6.p.rapidapi.com/news/v2/list-by-sport"
     querystring = {"category": "2021020913321411486", "page": "1"}
@@ -305,22 +315,22 @@ def CricketGallery():
     print(Images)
     return Images
 
+
 def UpcomingCricketMatches():
     presentday = datetime.now()
     tomorrow = presentday + timedelta(1)
     return tomorrow.strftime('%Y%m%d')
+
 
 def PastCricketMatches():
     presentday = datetime.now()
     yesterday = presentday - timedelta(1)
     return yesterday.strftime('%Y%m%d')
 
+
 def CricketMatchesToday():
     presentday = datetime.now()
     return presentday.strftime('%Y%m%d')
-
-
-
 
 
 def findex(request):
@@ -410,7 +420,7 @@ def findex(request):
     datadi = {}
     resu = responses.json()
     for i in resu['Stages']:
-        if('CompN' in i.keys()):
+        if ('CompN' in i.keys()):
             Team = i['CompN']
             LData.append({
                 "Team": Team
@@ -424,9 +434,10 @@ def findex(request):
     datadi.__setitem__(length, LData)
     # Previous Matches Ends Here
 
-
     return render(request, 'home/football/index.html',
-                  {'stats': statsdata, 'pointstable': ptable, 'live': liveteams, 'news': News, 'Images': Image, 'past': datadi})
+                  {'stats': statsdata, 'pointstable': ptable, 'live': liveteams, 'news': News, 'Images': Image,
+                   'past': datadi})
+
 
 def GetSoccerLiveMatches():
     url = "https://livescore6.p.rapidapi.com/matches/v2/list-live"
@@ -438,6 +449,7 @@ def GetSoccerLiveMatches():
         Eid.append(i['Events'][0]['Eid'])
     return Eid
 
+
 def GetSoccerMatchesByDate(Date):
     url = "https://livescore6.p.rapidapi.com/matches/v2/list-by-date"
     querystring = {"Category": "soccer", "Date": Date}
@@ -448,6 +460,7 @@ def GetSoccerMatchesByDate(Date):
         Eid.append(i['Events'][0]['Eid'])
     return Eid
 
+
 def GetSoccerMatchDetailsByLeague(league, grp):
     url = "https://livescore6.p.rapidapi.com/matches/v2/list-by-league"
 
@@ -455,6 +468,7 @@ def GetSoccerMatchDetailsByLeague(league, grp):
     response = requests.request("GET", url, headers=headers, params=querystring)
     res = response.json()
     return res['Stages'][0]['LeagueTable']['L'][0]['Tables'][0]['team']
+
 
 def GetSoccerMatchesByLeague(league, grp):
     url = "https://livescore6.p.rapidapi.com/matches/v2/list-by-league"
@@ -470,6 +484,7 @@ def GetSoccerMatchesByLeague(league, grp):
     # for i in res['Stages']:
     #     for j in i['Events']:
     #         Eid.append(j['Eid'])
+
 
 def GetLatestSoccerNews():
     url = "https://livescore6.p.rapidapi.com/news/v2/list-by-sport"
@@ -488,6 +503,7 @@ def GetLatestSoccerNews():
     newss.__setitem__("news", news)
     return newss
 
+
 def SoccerGallery():
     url = "https://livescore6.p.rapidapi.com/news/v2/list-by-sport"
     querystring = {"category": "2021020913320920836", "page": "1"}
@@ -502,15 +518,18 @@ def SoccerGallery():
     Images.__setitem__("img", Image)
     return Images
 
+
 def UpcomingSoccerMatches():
     presentday = datetime.now()
     tomorrow = presentday + timedelta(1)
     return tomorrow.strftime('%Y%m%d')
 
+
 def PastSoccerMatches():
     presentday = datetime.now()
     yesterday = presentday - timedelta(1)
     return yesterday.strftime('%Y%m%d')
+
 
 def SoccerMatchesToday():
     presentday = datetime.now()
@@ -539,35 +558,35 @@ def bindex(request):
         res = response.json()
         Tr1 = res['Tr1']
         Tr2 = res['Tr2']
-        if('Tr1Q1' in res.keys()):
+        if ('Tr1Q1' in res.keys()):
             Tr1Q1 = res['Tr1Q1']
         else:
             Tr1Q1 = 0
-        if('Tr1Q2' in res.keys()):
+        if ('Tr1Q2' in res.keys()):
             Tr1Q2 = res['Tr1Q2']
         else:
             Tr1Q2 = 0
-        if('Tr1Q3' in res.keys()):
+        if ('Tr1Q3' in res.keys()):
             Tr1Q3 = res['Tr1Q3']
         else:
             Tr1Q3 = 0
-        if('Tr1Q4' in res.keys()):
+        if ('Tr1Q4' in res.keys()):
             Tr1Q4 = res['Tr1Q4']
         else:
             Tr1Q4 = 0
-        if('Tr2Q1' in res.keys()):
+        if ('Tr2Q1' in res.keys()):
             Tr2Q1 = res['Tr2Q1']
         else:
             Tr2Q1 = 0
-        if('Tr2Q2' in res.keys()):
+        if ('Tr2Q2' in res.keys()):
             Tr2Q2 = res['Tr2Q2']
         else:
             Tr2Q2 = 0
-        if('Tr2Q3' in res.keys()):
+        if ('Tr2Q3' in res.keys()):
             Tr2Q3 = res['Tr2Q3']
         else:
             Tr2Q3 = 0
-        if('Tr2Q4' in res.keys()):
+        if ('Tr2Q4' in res.keys()):
             Tr2Q4 = res['Tr2Q4']
         else:
             Tr2Q4 = 0
@@ -600,13 +619,13 @@ def bindex(request):
             'League': League
         })
         NBATeamsdic.__setitem__("Listing", NBATeamsList)
-        if('Lu' in res.keys()):
+        if ('Lu' in res.keys()):
             Team1Details = res['Lu'][0]['Ps']
             Team2Details = res['Lu'][1]['Ps']
             for j in Team1Details:
                 PlayerName = j['Snm']
                 Status = j['Pon']
-                if('Snu' in j.keys()):
+                if ('Snu' in j.keys()):
                     PlayerNo = j['Snu']
                 else:
                     PlayerNo = "NA"
@@ -618,7 +637,7 @@ def bindex(request):
             for j in Team2Details:
                 PlayerName = j['Snm']
                 Status = j['Pon']
-                if('Snu' in j.keys()):
+                if ('Snu' in j.keys()):
                     PlayerNo = j['Snu']
                 else:
                     PlayerNo = "NA"
@@ -628,13 +647,13 @@ def bindex(request):
                     "PlayerNo": PlayerNo
                 })
 
-
     data1.__setitem__("Team1", datas1)
     data2.__setitem__("Team2", datas2)
 
-    print(NBAStatsdic)
+    return render(request, 'home/basketball/index.html',
+                  {'Stats': NBAStatsdic, 'NBATeamDets': NBATeamsdic, 'team1details': data1, 'team2details': data2,
+                   'news': News, 'Images': Image})
 
-    return render(request, 'home/basketball/index.html', {'Stats':NBAStatsdic ,'NBATeamDets':NBATeamsdic ,'team1details': data1, 'team2details': data2 ,'news': News, 'Images': Image})
 
 def GetBasketballLiveMatches():
     url = "https://livescore6.p.rapidapi.com/matches/v2/list-live"
@@ -646,6 +665,7 @@ def GetBasketballLiveMatches():
         Eid.append(i['Events'][0]['Eid'])
     return Eid
 
+
 def GetBasketbllMatchesByDate(Date):
     url = "https://livescore6.p.rapidapi.com/matches/v2/list-by-date"
     querystring = {"Category": "basketbll", "Date": Date}
@@ -656,6 +676,7 @@ def GetBasketbllMatchesByDate(Date):
         Eid.append(i['Events'][0]['Eid'])
     return Eid
 
+
 def GetBasketballMatchDetailsByLeague(league):
     url = "https://livescore6.p.rapidapi.com/matches/v2/list-by-league"
 
@@ -663,6 +684,7 @@ def GetBasketballMatchDetailsByLeague(league):
     response = requests.request("GET", url, headers=headers, params=querystring)
     res = response.json()
     return res['Stages'][0]['LeagueTable']['L'][0]['Tables'][0]['team']
+
 
 def GetBasketballMatchesByLeague(league):
     url = "https://livescore6.p.rapidapi.com/matches/v2/list-by-league"
@@ -678,6 +700,7 @@ def GetBasketballMatchesByLeague(league):
     # for i in res['Stages']:
     #     for j in i['Events']:
     #         Eid.append(j['Eid'])
+
 
 def GetLatestBasketballNews():
     url = "https://livescore6.p.rapidapi.com/news/v2/list-by-sport"
@@ -696,6 +719,7 @@ def GetLatestBasketballNews():
     newss.__setitem__("news", news)
     return newss
 
+
 def BasketballGallery():
     url = "https://livescore6.p.rapidapi.com/news/v2/list-by-sport"
     querystring = {"category": "2021020913321516170", "page": "1"}
@@ -710,12 +734,49 @@ def BasketballGallery():
     Images.__setitem__("img", Image)
     return Images
 
+
 def UpcomingBasketballMatches():
     presentday = datetime.now()
     tomorrow = presentday + timedelta(1)
     return tomorrow.strftime('%Y%m%d')
 
+
 def PastBasketballMatches():
     presentday = datetime.now()
     yesterday = presentday - timedelta(1)
     return yesterday.strftime('%Y%m%d')
+
+
+def triviaindex(request):
+    url = "https://opentdb.com/api.php?amount=10&category=21&type=multiple"
+    response = requests.request("GET", url)
+    res = response.json()
+    Set = {}
+    QList = []
+
+    CorrectSet = {}
+    CQList = []
+
+    count = 0
+    percent = 0
+    for i in res['results']:
+        count+= 1
+        percent+= 10
+        OptionString = ['Option1', 'Option2', 'Option3', 'Option4']
+        random.shuffle(OptionString)
+        QList.append({
+            'percent': percent,
+            'index': count,
+            'Question': i['question'].replace("&#039;","'").replace("&quot;",'"').replace("&eacute;","e").replace("&ouml;","o"),
+            OptionString.pop(): i['correct_answer'].replace("&#039;","'").replace("&quot;",'"').replace("&eacute;","e").replace("&ouml;","o"),
+            OptionString.pop(): i['incorrect_answers'][0].replace("&#039;","'").replace("&quot;",'"').replace("&eacute;","e").replace("&ouml;","o"),
+            OptionString.pop(): i['incorrect_answers'][1].replace("&#039;","'").replace("&quot;",'"').replace("&eacute;","e").replace("&ouml;","o"),
+            OptionString.pop(): i['incorrect_answers'][2].replace("&#039;","'").replace("&quot;",'"').replace("&eacute;","e").replace("&ouml;","o")
+        })
+        CQList.append({
+            'Correct': i['correct_answer'],
+        })
+    Set.__setitem__("ques", QList)
+    CorrectSet.__setitem__('question', CQList)
+    dataJSON = dumps(CorrectSet)
+    return render(request, 'home/games/trivia.html', {'questions': Set, 'Ans': dataJSON})

@@ -81,11 +81,18 @@ function quizPage () {
     questionProgressDiv.append(questionProgress)
 
 
-    questionProgress.value = '22'
+    questionProgress.value = '10'
     questionProgress.max = '100'
     questionProgress.classList.add('progress')
     questionDisplayDiv.append(displayText)
-    questionDisplayDiv.classList.add('display-content')
+    questionDisplayDiv.classList.add('display-content');
+    data = funcName("https://opentdb.com/api.php?amount=10&category=21&type=multiple")
+    data.then(function(result) {
+    for(let i = 0; i<10 ; i++){
+    console.log(result.results[i])
+    }
+    })
+    data = funcName("https://opentdb.com/api.php?amount=10&category=21&type=multiple")
     displayText.innerText = "What cricketing term denotes a batsman being dismissed with a score of zero?"
 
     answersButtonDiv.append(optionOneButton)
@@ -117,6 +124,12 @@ function quizPage () {
     })
 
 }
+
+const funcName = async (url) => {
+    const response = await fetch(url);
+    var data = await response.json();
+    return data
+    }
 
 function finishPage () {
     const contentDiv = document.createElement('div')

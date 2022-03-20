@@ -25,9 +25,8 @@ body{
     grid-template-areas:'header header header header header header'
                         'left right right right right right'   
                         'left footer footer footer footer footer';
-   /* height: auto;*/
-    margin:45px;
-    
+    margin:20px;
+    height:auto;
                     }
 .heading{
     text-align: left;
@@ -63,7 +62,7 @@ body{
     width:auto;
     background-color:black;
     border-radius: 15px;
-    height:15%;
+    height:25%;
     text-align: center;
     overflow: scroll;
     border:1.9px solid white;
@@ -92,7 +91,7 @@ body{
     float: left;
     background-color:black;
     border-radius: 15px;
-    height:100%;
+    height:160%;
     margin-left: 10px;
     border:1.9px solid white;
     text-align: center;
@@ -107,7 +106,7 @@ body{
     background-color:black;
     border:1.9px solid white;
     border-radius: 15px;
-    height:100%;
+    height:160%;
     text-align: center;
     overflow: scroll;
     box-shadow: 5px 5px 5px 5px rgba(14, 11, 11, 0.2);
@@ -133,14 +132,14 @@ tr{
  
 }
 
-.btables{
+/*.btables{
     margin-top:65px;
     border:1.9px solid white;
     margin-left:10px;
     margin-right: 10px;
     width:90%;
     height:auto;
-}
+}*/
 .stats{
     margin-top: 10px;
     width:auto;
@@ -168,21 +167,21 @@ tr{
     width:auto;
     background-color:black;
     border-radius: 15px;
-    height:350px;
+    height:355px;
     text-align: center;
     overflow: scroll;
     box-shadow: 0 15px 15px 0 rgba(15, 15, 15, 0.2);
     border:1.9px solid white;
 }
 
-.footer{
+.footer1{
     width:100%;
-    grid-area:footer;
+   /* grid-area:footer;*/
     background-color:black;
     height:25px;
     float:right;
     border-radius: 5px;
-   /* margin:-10px 0px;*/
+    margin:45px 0px;
     color:white;
 }
 ul li{
@@ -211,6 +210,7 @@ ul li{
                         'right right right right right right'
                         'footer footer footer footer footer footer';                
     margin:10px;
+    
     }
     .right{
         margin-top:10px;
@@ -237,9 +237,9 @@ ul li{
         margin-top: 10px;
         margin-right: 9px;
     }
-    /*.footer{
+    footer1{
         margin-top: 85vh;
-    }*/
+    }
 }
 
 .leftside{

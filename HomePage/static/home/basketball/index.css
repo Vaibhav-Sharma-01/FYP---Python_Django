@@ -5,9 +5,13 @@
 }
 
 body{
-    background-color: black;
     font-family: 'Aclonica';
     font-size: 15px;
+    background-image: url(basketballbackground.jpg);
+    background-repeat:no-repeat ;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
 }
 ::-webkit-scrollbar{
     display: none;
@@ -15,23 +19,35 @@ body{
 .header{
     grid-area:header;
     width:100%;
-    background-color: black;
+    
     color:rgb(8, 8, 8);
     padding:10px;
     margin-bottom: 10px;
 }
 .main{
+    
     display:grid;
     grid-template-areas:'header header header header header header'
                         'left right right right right right'   
-                        'footer footer footer footer footer footer';
-    height: 100vh;
+                        'left footer footer footer footer footer';
+    margin:20px;
+    height:auto;
                     }
 .heading{
     text-align: left;
     margin:8px;
     padding:5px;
-    background-color: rgb(214, 21, 21);
+    background-color: red;
+    width:auto;
+    color:rgb(22, 20, 20);
+    border-radius: 5px;
+    position:absolute;
+}
+.heading1{
+    text-align: left;
+    margin:8px;
+    padding:5px;
+    background-color:white;
     width:auto;
     color:rgb(22, 20, 20);
     border-radius: 5px;
@@ -40,22 +56,17 @@ body{
 .right{
     width:100%;
     grid-area: right;
-    background-color: black;
     color:white;
     height:34%;
     border-radius: 15px;
     margin-left:9px;
 }
 .left{
-    
-
     grid-area: left;
-    background-color:black;
     width:100%;
     color:white;
     border-radius: 5px;
     margin-right: 9px;
-
     height: 34%;
    
 }
@@ -64,10 +75,9 @@ body{
     width:auto;
     background-color:black;
     border-radius: 15px;
-    height:15%;
+    height:25%;
     text-align: center;
     overflow: scroll;
-    border:1.9px solid white;
     box-shadow: 0 4px 8px 0 rgba(49, 39, 39, 0.2);
 }
 .text{
@@ -75,7 +85,7 @@ body{
     margin-top: 55px;
     word-spacing: 5px;
 }
-.teamspointable{
+/*.teamspointable{
     float:left;
     width:65%;
     background-color:black;
@@ -86,40 +96,40 @@ body{
     overflow: scroll;
     box-shadow: 5px 5px 5px 5px rgba(15, 15, 15, 0.2);
     border:1.9px solid white;
-}
+}*/
 
 .team1{
     width:48%;
     float: left;
-    background-color:black;
     border-radius: 15px;
-    height:102%;
+    height:160%;
     margin-left: 10px;
-    border:1.9px solid white;
+    
     text-align: center;
     overflow: scroll;
     margin-bottom: 10px;
     box-shadow: 5px 5px 5px 5px rgba(15, 15, 15, 0.2);
 }
 .team2{
-    width:50%;
+    width:48%;
     float:right;
    
-    background-color:black;
-    border:1.9px solid white;
     border-radius: 15px;
-    height:102%;
+    height:160%;
     text-align: center;
     overflow: scroll;
     box-shadow: 5px 5px 5px 5px rgba(14, 11, 11, 0.2);
 }
+
+
 table,tr,th{
     margin-top:90px;
       border:collapse;
       color:white;
       padding:15px auto;   
       margin-left:10px;
-      margin-right:10px;   
+      margin-right:10px;  
+      font-size: 13px; 
 }
 th{
     text-align: center;
@@ -129,19 +139,19 @@ th{
 }
 td{text-align: center;}
 tr{
-    border: 1.9px solid white;
+    border-bottom: 1px solid white;
     height:40px;
  
 }
 
-.btables{
+/*.btables{
     margin-top:65px;
     border:1.9px solid white;
     margin-left:10px;
     margin-right: 10px;
     width:90%;
     height:auto;
-}
+}*/
 .stats{
     margin-top: 10px;
     width:auto;
@@ -151,7 +161,7 @@ tr{
     text-align: center;
     overflow: scroll;
     box-shadow: 0 15px 15px 0 rgba(15, 15, 15, 0.2);
-    border:1.9px solid white;
+   
 }
 .newsheadlines{
     margin-top: 10px;
@@ -162,20 +172,34 @@ tr{
     text-align: center;
     overflow: scroll;
     box-shadow: 0 15px 15px 0 rgba(15, 15, 15, 0.2);
-    border:1.9px solid white;   
+   
 }
-.footer{
+.Pgallery{
+    margin-top: 10px;
+    width:auto;
+    background-color:black;
+    border-radius: 15px;
+    height:355px;
+    text-align: center;
+    overflow: scroll;
+    box-shadow: 0 15px 15px 0 rgba(15, 15, 15, 0.2);
+}
+
+.footer1{
     width:100%;
-    grid-area:footer;
-    background-color: black;
-    height:25px;
+   /* grid-area:footer;*/
+    height:5px;
+    float:right;
     border-radius: 5px;
-    margin:10px 0px;
+    margin:45px 0px;
     color:white;
 }
 ul li{
     display: inline;
-    margin:15px;
+    margin:5px;
+    color:white;
+}
+ul li a{
     color:white;
 }
 @media screen and (max-width:1120px){
@@ -188,7 +212,7 @@ ul li{
     margin:45px;
     }
     .right{
-        margin-top: 10px;
+        margin-top: 5px;
     }
 }
 @media screen and (max-width:770px){
@@ -198,7 +222,8 @@ ul li{
                         'left left left left left left'   
                         'right right right right right right'
                         'footer footer footer footer footer footer';                
-    margin:10px;
+    margin:5px;
+    
     }
     .right{
         margin-top:10px;
@@ -225,7 +250,7 @@ ul li{
         margin-top: 10px;
         margin-right: 9px;
     }
-    .footer{
+    footer1{
         margin-top: 85vh;
     }
 }

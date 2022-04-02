@@ -35,7 +35,7 @@
     </div>
 
     <div class="left">
-        <div class="livematches">
+        <div class="livematches right shadow-lg bg-dark mt-4 mb-4 rounded">
             <h4 class="heading"> {{i.League}}</h4>
                 {% for k, v in NBATeamDets.items %}
                 {% for i in v %}
@@ -47,8 +47,8 @@
                 {% endfor %}
                 {% endfor %}
         </div>
-        <div class="stats">
-            <h4 class="heading">Quarters</h4>
+        <div class="stats bg-dark mt-4 mb-4 rounded">
+            <h4 class="heading1">Quarters</h4>
             <div class="p-2">
                 {% for k, v in Stats.items %}
                 {% for i in v %}
@@ -66,12 +66,48 @@
                 {% endfor %}
             </div>
         </div>
+        <div class="newsheadlines bg-dark mt-4 mb-4 rounded">
+        <div>
+            <h4 class="heading1">NEWSHEADLINES</h4>
+            <div class="p-2">
+                {% for k,v in news.items %}
+                {% for i in v %}
+                <div class="m-5 p-1 shadow-lg  bg-dark rounded border-bottom">
+                    <h5>
+                        <a href="#"
+                        >{{i.Title}}.
+                        </a>
+                    </h5>
+                    <img src={{i.Image}} height="200px" width="100%">
+                    <h6 class="mt-2">
+                        {{i.Body}}
+                    </h6>
+                    <p class="rca-post-info">at {{i.Time}}</p>
+                </div>
+                {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+        </div>
+        <div class="Pgallery bg-dark mt-4 mb-4 rounded">
+            
+                        <h4 class="heading1">PHOTO GALLERY</h4>
+            
+                        <div class="p-2">
+                            {% for k,v in Images.items %}
+                            {% for i in v %}
+                            <img class="shadow-lg bg-dark p-5 rounded w-100" src={{i.Image}} height="300px" width="100%">
+                            {% endfor %}
+                            {% endfor %}
+                        </div>
+                    
+                </div>
     </div>
 
     <div class="right">
 
-        <div class="team1">
-            <h4 class="heading">TEAM 1</h4>
+        <div class="team1 shadow-lg bg-dark mt-4 mb-4 rounded">
+            <h4 class="heading1">TEAM 1</h4>
             <div>
                 <table>
                     <tr>
@@ -92,8 +128,9 @@
             </div>
         </div>
 
-        <div class="team2">
-            <h4 class="heading">TEAM 2</h4>
+        <div class="team2 right shadow-lg bg-dark mt-4 mb-4 rounded">
+        
+            <h4 class="heading1">TEAM 2</h4>
             <table>
                 <tr>
                     <th></th>
@@ -110,6 +147,7 @@
                 {% endfor %}
                 {% endfor %}
             </table>
+        
         </div>
 
 <!--        <div class="Pgallery">-->
@@ -125,46 +163,44 @@
 <!--            </div>-->
 <!--        </div>-->
 <!--    </div>-->
-
+<div class="footer1 rca-row">
+    <div class="footersection rca-column-8">
+    <div >
+        <ul class="rca-footer">
+            <li><a href="" class="anc1">About Us</a></li>
+            <li><a href="" class="anc">Privacy Policy</a></li>
+            <li><a href="" class="anc">Feedback</a></li>
+            <li><a href="" class="anc">Site map</a></li>
+        </ul>
+    </div>
+    <div class="rca-column-4">
+        <ul class="rca-footer rca-right">
+            <li class="anc">© 2021 <a href="" class="anc">SportsWiki</a>, All rights reserved</li>
+        </ul>
+    </div>
+    </div>
+</div>
     </div>
 
-    <div class="newsheadlines">
-            <h4 class="heading">NEWSHEADLINES</h4>
-            <div class="p-2">
-                {% for k,v in news.items %}
-                {% for i in v %}
-                <div class="m-5 p-1 shadow-lg  bg-dark rounded border-bottom">
-                    <h5>
-                        <a href="#"
-                        >{{i.Title}}.
-                        </a>
-                    </h5>
-                    <img src={{i.Image}} height="200px" width="100%">
-                    <h6 class="mt-2">
-                        {{i.Body}}
-                    </h6>
-                    <p class="rca-post-info">at {{i.Time}}</p>
-                </div>
-                {% endfor %}
-                {% endfor %}
-            </div>
-        </div>
+    
 
     <div class="footer">
-        <div class="rca-column-8">
-            <ul class="rca-footer">
-                <li><a href="" class="anc1">About Us</a></li>
-                <li><a href="" class="anc">Privacy Policy</a></li>
-                <li><a href="" class="anc">Feedback</a></li>
-                <li><a href="" class="anc">Site map</a></li>
-            </ul>
-        </div>
-
-        <div class="rca-column-4">
-            <ul class="rca-footer rca-right">
-                <li class="anc">© 2021 <a href="" class="anc">SportsWiki</a>, All rights reserved</li>
-            </ul>
-        </div>
+    <!-- <div class="footersection">-->
+    <!--     <div >-->
+    <!--     <div >-->
+         <!--    <ul >-->
+    <!--                 <li><a href="" class="anc1">About Us</a></li>-->
+    <!--             <li><a href="" class="anc">Privacy Policy</a></li>-->
+    <!--             <li><a href="" class="anc">Feedback</a></li>-->
+    <!--             <li><a href="" class="anc">Site map</a></li>-->
+     <!--        </ul>-->
+    <!--     </div>-->
+    <!--     <div >-->
+    <!--         <ul >-->
+    <!--             <li class="anc">© 2021 <a href="" class="anc">SportsWiki</a>, All rights reserved</li>-->
+            </ul>-->
+    <!--     </div>-->
+    <!--     </div>-->
     </div>
 </div>
 </body>

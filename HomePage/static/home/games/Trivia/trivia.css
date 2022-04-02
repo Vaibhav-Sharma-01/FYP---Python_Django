@@ -1,0 +1,61 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+
+@media (min-width: 1200px)
+.containers {
+    max-width: 1140px;
+}
+@media (min-width: 992px)
+.containers {
+    max-width: 960px;
+}
+@media (min-width: 768px)
+.containers {
+    max-width: 720px;
+}
+@media (min-width: 576px)
+.containers {
+    max-width: 540px;
+}
+.containers {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.containers {
+    max-width: 100%;
+    height: 100vh;
+    background: url(https://sport-trivia.vercel.app/images/quizpage-bg.png);
+    font-family: Aclonica;
+    background-size: cover;
+}
+
+.main{
+    position: relative;
+    top: 165px;
+    width: 65%;
+    left: 18%;
+    padding: 28px 34px 28px 34px;
+}
+
+.width-adj{
+    width: 48%;
+    margin: 1%;
+}
+
+.round{
+    border-radius: 1.25rem!important;
+}
+
+.question{
+    height: 100px;
+}
+
+#btsubmit{
+display: none;
+}

@@ -463,6 +463,35 @@ a {
   left: 660px;
 }
 
+.fl{
+  float:left;
+  margin-left:2%;
+  width:30%;
+  margin-top:5%;
+}
+
+.fls{
+  float:left;
+  margin-left:2%;
+  width:30%;
+  margin-top:3%;
+}
+
+.new{
+  float: left;
+  margin-left:2%;
+  width:30%;
+  margin-top:5%;
+}
+
+.fr{
+  float:right;
+  margin-right:2%;
+  width:30%;
+  margin-top:5%;
+}
+
+
 .middlebottom {
   height: 100vh;
   width: 100%;

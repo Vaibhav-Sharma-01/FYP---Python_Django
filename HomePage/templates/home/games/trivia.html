@@ -128,8 +128,16 @@
         }
     }
 
+    function submit(){
+
+    }
+
     var count = 1
     function mybtn(){
+        if(count == 9){
+            document.getElementById("btnext").style.display = "none";
+            document.getElementById("btsubmit").style.display = "block";
+        }
         var countDownDate = new Date().getTime()+16000;
         var x = setInterval(function() {
         var now = new Date().getTime();
@@ -144,8 +152,9 @@
           }
         }, 1000);
         if(status == "correct"){
-            mainscore+= 1
+            mainscore+= 1;
         }
+        console.log(mainscore);
         document.getElementById(count).style.display = "none";
         document.getElementById(count+1).style.display = "block";
         count+=1;

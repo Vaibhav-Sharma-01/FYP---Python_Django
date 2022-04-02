@@ -41,4 +41,14 @@ urlpatterns = [
     re_path('/games/trivia', TemplateView.as_view(template_name="home/games/trivia.html"),
             name='trivia'),
 
+    path('/games/index', views.bball, name='bballindex'),
+
+    re_path('/games/index', TemplateView.as_view(template_name="home/games/index.html"),
+            name='BasketBallGame'),
+
+    path('/games/chess', views.chess, name='chessindex'),
+
+    re_path('/games/chess', TemplateView.as_view(template_name="home/games/chess.html"),
+            name='chess'),
+
 ]

@@ -17,21 +17,27 @@
 <body>
     <div class="containers">
         <div class="rows ml-5">
-            <div class="col-3 shadow-lg ml-5 bg-dark mt-4 round cols">
+            <div class="col-3 shadow-lg ml-5 bg-white mt-4 round cols">
                 <a href="{% url 'trivia' %}">
-                <img class="trivia shadow-lg round" src="{%static 'home/games/trivia.png' %}" width="100%" height="">
+                    <img class="trivia round" src="{%static 'home/games/Trivia/trivia.jpg' %}"
+                                     alt="Los Angeles">
                 </a>
             </div>
-            <div class="col-3 shadow-lg ml-5 bg-light mt-4 round cols"></div>
-            <div class="col-3 shadow-lg ml-5 mt-4 round cols"></div>
-        </div>
-        <div class="rows ml-5">
-            <div class="col-3 shadow-lg ml-5 bg-white mt-4 round cols"></div>
-            <div class="col-3 shadow-lg ml-5 mt-4 round cols"></div>
-            <div class="col-3 shadow-lg ml-5 mt-4 round cols"></div>
+            <div class="col-3 shadow-lg ml-5 mt-4 bg-white round cols">
+                <a href="{% url 'BasketBallGame' %}">
+                    <img class="trivia round" src="{%static 'home/games/BasketBall/images/basketballgame.webp' %}"
+                                     alt="Los Angeles">
+                </a>
+            </div>
+            <div class="col-3 shadow-lg ml-5 mt-4 bg-white round cols">
+                <a href="{% url 'chess' %}">
+                    <img class="trivia round" src="{%static 'home/games/Chess/chess.png' %}"
+                                     alt="Los Angeles">
+                </a>
+            </div>
         </div>
     </div>
 
 </body>
-<!--<script src="{%static 'home/games/trivia.js' %}"></script>-->
+<!--<script src="{%static 'home/games/trivia.BasketBallGameJs' %}"></script>-->
 </html>

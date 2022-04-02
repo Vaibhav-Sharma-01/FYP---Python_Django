@@ -780,3 +780,9 @@ def triviaindex(request):
     CorrectSet.__setitem__('question', CQList)
     dataJSON = dumps(CorrectSet)
     return render(request, 'home/games/trivia.html', {'questions': Set, 'Ans': dataJSON})
+
+def bball(request):
+    return render(request, 'home/games/index.html')
+
+def chess(request):
+    return render(request, 'home/games/chess.html')

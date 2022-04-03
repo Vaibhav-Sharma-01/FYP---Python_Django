@@ -42,7 +42,7 @@
             <div class="col-12">
                 <div class="logo">
                     <h2>
-                <span><img src="{%static 'home/football/ball-of-basket.jpg' %}" style="width: 50px"/></span
+                <span><img src="{%static 'home/football/football.png' %}" style="width: 50px"/></span
                 ><span style="color: rgb(255, 255, 255);"><b>SportsWiki</b></span>
                     </h2>
                 </div>
@@ -50,7 +50,7 @@
         </div>
         <div class="grid-container">
 
-            <div class="header shadow-lg bg-dark mt-4 mb-4 rounded">
+            <div class="header shadow-lg bg-white mt-4 mb-4 rounded">
                 <div class="leagues">
                     <div class="leaguestypes">
                         {% for k,v in past.items %}
@@ -64,23 +64,23 @@
             </div>
 
             <div>
-                <div class="left shadow-lg bg-dark mt-4 mb-4 rounded"
+                <div class="left text-dark shadow-lg bg-white mt-4 mb-4 rounded"
                      style="background-color:rgba(104, 99, 99, 0.685);">
                     <h5 class="headlines mt-4">NEWS HEADLINES</h5>
 
-                    <div class="headlinecontent">
+                    <div class="text-dark headlinecontent">
                         {% for k,v in news.items %}
                         {% for i in v %}
-                        <div class="shadow-lg bg-dark p-2 m-4">
-                            <h5>
+                        <div class="shadow-lg bg-light p-2 m-4">
+                            <h4>
                                 <a href="#"
                                 >{{i.Title}}.
                                 </a>
-                            </h5>
+                            </h4>
                             <img class="nimages" src={{i.Image}} height="200px" width="100%">
-                            <h6 class="mt-2">
+                            <h4 class="mt-2">
                                 {{i.Body}}
-                            </h6>
+                            </h4>
                             <p class="rca-post-info">at {{i.Time}}</p>
                         </div>
                         {% endfor %}
@@ -88,7 +88,7 @@
                     </div>
                 </div>
 
-                <div class="middle shadow-lg bg-dark mt-4 mb-4 rounded"
+                <div class="text-dark middle shadow-lg bg-white mt-4 mb-4 rounded"
                      style="background-color:rgba(104, 99, 99, 0.685);">
                     <h5 class="headlines mt-4">LIVE MATCHES</h5>
                     <div class="match">
@@ -105,11 +105,11 @@
                     </div>
                 </div>
 
-                <div class="right shadow-lg bg-dark mt-4 mb-4 rounded"
+                <div class="text-dark right shadow-lg bg-white mt-4 mb-4 rounded"
                      style="background-color:rgba(104, 99, 99, 0.685);">
                     <h5 class="headlines mt-4">POINT TABLE</h5>
                     <div class="pointtable p-3">
-                        <div class="pointtables shadow-lg bg-white p-3 mt-4 mb-4 rounded">
+                        <div class="pointtables shadow-lg bg-light p-3 mt-4 mb-4 rounded">
                             <div>
                                 <table>
                                     <tr>
@@ -143,25 +143,25 @@
 
             <div class="section-2">
 
-                <div class="gallery shadow-lg bg-dark mt-4 mb-4 rounded">
-                    <h3 class="headlines mt-4">PHOTO GALLERY</h3>
+                <div class="gallery shadow-lg bg-white mt-4 mb-4 rounded">
+                    <h3 class="text-dark headlines mt-4">PHOTO GALLERY</h3>
 
                     <div class="galleryimages">
                         {% for k,v in Images.items %}
                         {% for i in v %}
-                        <img class="shadow-lg bg-dark p-5 rounded w-100" src={{i.Image}} height="300px" width="100%">
+                        <img class="shadow-lg bg-light p-5 rounded w-100" src={{i.Image}} height="300px" width="100%">
                         {% endfor %}
                         {% endfor %}
                     </div>
                 </div>
 
-                <div class="stats shadow-lg bg-dark mt-4 mb-4 rounded">
-                    <h3 class="headlines">STATS</h3>
+                <div class="stats shadow-lg bg-white mt-4 mb-4 rounded">
+                    <h3 class="text-dark headlines">STATS</h3>
 
-                    <div class="black shadow-lg bg-white p-5 m-5 rounded">
+                    <div class="black shadow-lg bg-light p-5 m-5 rounded">
                         {% for k,v in stats.items %}
                         {% for i in v %}
-                        <p><span class="leftside">{{i.Team}}</span><span>:</span><span class="rightside">{{i.Team2}}</span></p>
+                        <p><span class="leftside">Team 1</span><span></span><span class="rightside">Team 2</span></p>
                         <p><span class="leftside">{{i.Score}}</span><span>:</span><span class="rightside">{{i.Score2}}</span></p>
                         <p><span class="leftside">{{i.YellowCards}}</span><span>YellowCards</span><span class="rightside">{{i.YellowCards2}}</span></p>
                         <p><span class="leftside">{{i.Possession}}</span><span>Possession</span><span class="rightside">{{i.Possession2}}</span></p>

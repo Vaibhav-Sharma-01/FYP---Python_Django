@@ -8,7 +8,7 @@
     <link
             rel="stylesheet"
             type="text/css"
-            href="{%static 'home/games/trivia.css' %}"
+            href="{%static 'home/games/Trivia/trivia.css' %}"
     />
     <link
             rel="stylesheet"
@@ -21,6 +21,7 @@
             rel="stylesheet"
     />
     <title>TRIVIA</title>
+    <script href="{%static 'home/games/Trivia/trivia.js'%}"></script>
 </head>
 <body>
 <div class="containers">
@@ -128,10 +129,6 @@
         }
     }
 
-    function submit(){
-
-    }
-
     var count = 1
     function mybtn(){
         if(count == 9){
@@ -159,6 +156,16 @@
         document.getElementById(count+1).style.display = "block";
         count+=1;
     }
+
+    function submit(){
+        var txt;
+  if (confirm("Your Score is: ",mainscore)) {
+    window.open('home',target="_self");
+  } else {
+    window.open('trivia',target="_self");
+  }
+    }
+
 
 </script>
 </html>

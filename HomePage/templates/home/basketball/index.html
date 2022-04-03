@@ -1,4 +1,5 @@
 {% load static %}
+{% load blog_tags %}
 <html>
 <head>
     <meta charset="utf-8"/>
@@ -23,184 +24,239 @@
     <link href="{%static 'home/basketball/index.css' %}" rel="stylesheet" type="text/css">
 </head>
 <body>
-<div class="main">
+<div class="div-size">
+    <div class="main">
 
-    <div class="header">
-        <div class="rca-logo">
-            <h2>
+        <div class="header">
+            <div class="rca-logo">
+                <h2>
                     <span><img class="imgs" src="{%static 'home/basketball/ball-of-basket.jpg' %}" style="width: 50px"/></span
                     ><span style="color: rgb(255, 255, 255);"><b>SportsWiki</b></span>
-            </h2>
+                </h2>
+            </div>
         </div>
-    </div>
 
-    <div class="left">
-        <div class="livematches right shadow-lg bg-dark mt-4 mb-4 rounded">
-            <h4 class="heading"> {{i.League}}</h4>
+        <div class="left">
+            <div class="livematches right shadow-lg bg-white mt-4 mb-4 rounded">
+                <h4 class="heading"> {{i.League}}</h4>
                 {% for k, v in NBATeamDets.items %}
                 {% for i in v %}
-                <div class="shadow-lg  bg-dark p-3 m-2 border-bottom">
+                <div class="text-dark shadow-lg bg-light p-3 m-2 border-bottom">
                     <h3 class="text">{{i.Team1Name}} <span> vs </span>{{i.Team2Name}}</h3>
-                        <h3 class="text">{{i.Team1Score}} <span>   :   </span>{{i.Team2Score}}</h3>
-                        <h3 class="text">{{i.Date}}</h3>
-                </div>
-                {% endfor %}
-                {% endfor %}
-        </div>
-        <div class="stats bg-dark mt-4 mb-4 rounded">
-            <h4 class="heading1">Quarters</h4>
-            <div class="p-2">
-                {% for k, v in Stats.items %}
-                {% for i in v %}
-                <div class="m-5 p-1  shadow-lg rounded bg-dark rounded">
-                    <p><span class="leftside">{{i.T1Q1}}</span><span>Q1</span><span class="rightside">{{i.T2Q1}}</span>
-                    </p>
-                    <p><span class="leftside">{{i.T1Q2}}</span><span>Q2</span><span class="rightside">{{i.T2Q2}}</span>
-                    </p>
-                    <p><span class="leftside">{{i.T1Q3}}</span><span>Q3</span><span class="rightside">{{i.T2Q3}}</span>
-                    </p>
-                    <p><span class="leftside">{{i.T1Q4}}</span><span>Q4</span><span class="rightside">{{i.T2Q4}}</span>
-                    </p>
+                    <h3 class="text">{{i.Team1Score}} <span>   :   </span>{{i.Team2Score}}</h3>
+                    <h3 class="text">{{i.Date}}</h3>
                 </div>
                 {% endfor %}
                 {% endfor %}
             </div>
-        </div>
-        <div class="newsheadlines bg-dark mt-4 mb-4 rounded">
-        <div>
-            <h4 class="heading1">NEWSHEADLINES</h4>
-            <div class="p-2">
-                {% for k,v in news.items %}
-                {% for i in v %}
-                <div class="m-5 p-1 shadow-lg  bg-dark rounded border-bottom">
-                    <h5>
-                        <a href="#"
-                        >{{i.Title}}.
-                        </a>
-                    </h5>
-                    <img src={{i.Image}} height="200px" width="100%">
-                    <h6 class="mt-2">
-                        {{i.Body}}
-                    </h6>
-                    <p class="rca-post-info">at {{i.Time}}</p>
-                </div>
-                {% endfor %}
-                {% endfor %}
-            </div>
-        </div>
-        </div>
-        <div class="Pgallery bg-dark mt-4 mb-4 rounded">
-            
-                        <h4 class="heading1">PHOTO GALLERY</h4>
-            
-                        <div class="p-2">
-                            {% for k,v in Images.items %}
-                            {% for i in v %}
-                            <img class="shadow-lg bg-dark p-5 rounded w-100" src={{i.Image}} height="300px" width="100%">
-                            {% endfor %}
-                            {% endfor %}
-                        </div>
-                    
-                </div>
-    </div>
-
-    <div class="right">
-
-        <div class="team1 shadow-lg bg-dark mt-4 mb-4 rounded">
-            <h4 class="heading1">TEAM 1</h4>
-            <div>
-                <table>
-                    <tr>
-                        <th></th>
-                        <th>Players</th>
-                        <th>Status</th>
-                    </tr>
-                    {% for k, v in team1details.items %}
+            <div class="stats bg-white mt-4 mb-4 rounded">
+                <h4 class="heading1">Quarters</h4>
+                <div class="p-2">
+                    {% for k, v in Stats.items %}
                     {% for i in v %}
-                    <tr>
-                        <td>{{i.PlayerNo}}</td>
-                        <td>{{i.PlayerName}}</td>
-                        <td>{{i.Status}}</td>
-                    </tr>
+                    <div class="m-5 p-1 text-dark shadow-lg rounded bg-light rounded">
+                        <p><span class="leftside">{{i.T1Q1}}</span><span>Q1</span><span
+                                class="rightside">{{i.T2Q1}}</span>
+                        </p>
+                        <p><span class="leftside">{{i.T1Q2}}</span><span>Q2</span><span
+                                class="rightside">{{i.T2Q2}}</span>
+                        </p>
+                        <p><span class="leftside">{{i.T1Q3}}</span><span>Q3</span><span
+                                class="rightside">{{i.T2Q3}}</span>
+                        </p>
+                        <p><span class="leftside">{{i.T1Q4}}</span><span>Q4</span><span
+                                class="rightside">{{i.T2Q4}}</span>
+                        </p>
+                    </div>
                     {% endfor %}
                     {% endfor %}
-                </table>
+                </div>
+            </div>
+            <div class="newsheadlines bg-white mt-4 mb-4 rounded">
+                <div>
+                    <h4 class="heading1">NEWSHEADLINES</h4>
+                    <div class="p-2">
+                        {% for k,v in news.items %}
+                        {% for i in v %}
+                        <div class="m-5 p-1 shadow-lg text-dark bg-light rounded border-bottom">
+                            <h5>
+                                <a href="#"
+                                >{{i.Title}}.
+                                </a>
+                            </h5>
+                            <img src={{i.Image}} height="200px" width="100%">
+                            <h6 class="mt-2">
+                                {{i.Body}}
+                            </h6>
+                            <p class="rca-post-info">at {{i.Time}}</p>
+                        </div>
+                        {% endfor %}
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="team2 right shadow-lg bg-dark mt-4 mb-4 rounded">
-        
-            <h4 class="heading1">TEAM 2</h4>
-            <table>
-                <tr>
-                    <th></th>
-                    <th>Players</th>
-                    <th>Status</th>
-                </tr>
-                {% for k, v in team2details.items %}
-                {% for i in v %}
-                <tr>
-                    <td>{{i.PlayerNo}}</td>
-                    <td>{{i.PlayerName}}</td>
-                    <td>{{i.Status}}</td>
-                </tr>
-                {% endfor %}
-                {% endfor %}
-            </table>
-        
+        <div class="right">
+
+            <div class="team1 shadow-lg bg-white mt-4 mb-4 rounded">
+                <h4 class="heading1">TEAM 1</h4>
+                <div>
+                    {% for k, v in team1details.items %}
+                    <div class="shadow-lg bg-light p-3 m-2 mb-4 border-bottom">
+                        {% with True as flag %}
+                        {% for i in v %}
+                        {% if i.count == 1 %}
+                        {% if flag %}
+                        <h3 class="text-dark">{{i.TeamName}}</h3>
+                        {% update_variable False as flag %}
+                        {% endif %}
+                        <div class="row d-flex shadow-lg text-dark bgcolor p-3 m-2 border-bottom">
+                            <h6 class="col-1">{{i.PlayerNo}}</h6>
+                            <h6 class="col-5">{{i.PlayerName}}</h6>
+                            <h6 class="col-6">{{i.Status}}</h6>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        {% endwith %}
+                    </div>
+                    <div class="shadow-lg bg-light p-3 m-2 mb-4 border-bottom">
+                        {% with True as flag %}
+                        {% for i in v %}
+                        {% if i.count == 2 %}
+                        {% if flag %}
+                        <h3 class="text-dark">{{i.TeamName}}</h3>
+                        {% update_variable False as flag %}
+                        {% endif %}
+                        <div class="row d-flex shadow-lg text-dark bgcolor p-3 m-2 border-bottom">
+                            <h6 class="col-1">{{i.PlayerNo}}</h6>
+                            <h6 class="col-5">{{i.PlayerName}}</h6>
+                            <h6 class="col-6">{{i.Status}}</h6>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        {% endwith %}
+                    </div>
+                    <div class="shadow-lg bg-light p-3 m-2 mb-4 border-bottom">
+                        {% with True as flag %}
+                        {% for i in v %}
+                        {% if i.count == 3 %}
+                        {% if flag %}
+                        <h3 class="text-dark">{{i.TeamName}}</h3>
+                        {% update_variable False as flag %}
+                        {% endif %}
+                        <div class="row d-flex shadow-lg text-dark bgcolor p-3 m-2 border-bottom">
+                            <h6 class="col-1">{{i.PlayerNo}}</h6>
+                            <h6 class="col-5">{{i.PlayerName}}</h6>
+                            <h6 class="col-6">{{i.Status}}</h6>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        {% endwith %}
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+
+            <div class="team2 right shadow-lg bg-white mt-4 mb-4 rounded">
+
+                <h4 class="heading1">TEAM 2</h4>
+                <div>
+                    {% for k, v in team2details.items %}
+                    <div class="shadow-lg bg-light p-3 m-2 mb-4 border-bottom">
+                        {% with True as flag %}
+                        {% for i in v %}
+                        {% if i.count == 1 %}
+                        {% if flag %}
+                        <h3 class="text-dark">{{i.TeamName}}</h3>
+                        {% update_variable False as flag %}
+                        {% endif %}
+                        <div class="row d-flex shadow-lg text-dark bgcolor p-3 m-2 border-bottom">
+                            <h6 class="col-1">{{i.PlayerNo}}</h6>
+                            <h6 class="col-5">{{i.PlayerName}}</h6>
+                            <h6 class="col-6">{{i.Status}}</h6>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        {% endwith %}
+                    </div>
+                    <div class="shadow-lg bg-light p-3 m-2 mb-4 border-bottom">
+                        {% with True as flag %}
+                        {% for i in v %}
+                        {% if i.count == 2 %}
+                        {% if flag %}
+                        <h3 class="text-dark">{{i.TeamName}}</h3>
+                        {% update_variable False as flag %}
+                        {% endif %}
+                        <div class="row d-flex shadow-lg text-dark bgcolor p-3 m-2 border-bottom">
+                            <h6 class="col-1">{{i.PlayerNo}}</h6>
+                            <h6 class="col-5">{{i.PlayerName}}</h6>
+                            <h6 class="col-6">{{i.Status}}</h6>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        {% endwith %}
+                    </div>
+                    <div class="shadow-lg bg-light p-3 m-2 mb-4 border-bottom">
+                        {% with True as flag %}
+                        {% for i in v %}
+                        {% if i.count == 3 %}
+                        {% if flag %}
+                        <h3 class="text-dark">{{i.TeamName}}</h3>
+                        {% update_variable False as flag %}
+                        {% endif %}
+                        <div class="row d-flex shadow-lg text-dark bgcolor p-3 m-2 border-bottom">
+                            <h6 class="col-1">{{i.PlayerNo}}</h6>
+                            <h6 class="col-5">{{i.PlayerName}}</h6>
+                            <h6 class="col-6">{{i.Status}}</h6>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        {% endwith %}
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+
+            <div class="footer1 rca-row">
+                <div class="footersection rca-column-8">
+                    <div>
+                        <ul class="rca-footer">
+                            <li><a href="" class="anc1">About Us</a></li>
+                            <li><a href="" class="anc">Privacy Policy</a></li>
+                            <li><a href="" class="anc">Feedback</a></li>
+                            <li><a href="" class="anc">Site map</a></li>
+                        </ul>
+                    </div>
+                    <div class="rca-column-4">
+                        <ul class="rca-footer rca-right">
+                            <li class="anc">© 2021 <a href="" class="anc">SportsWiki</a>, All rights reserved</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
 
-<!--        <div class="Pgallery">-->
-<!--        <div class="shadow-lg bg-dark mt-4 mb-4 rounded">-->
-<!--            <h3 class="headlines mt-4">PHOTO GALLERY</h3>-->
-
-<!--            <div class="">-->
-<!--                {% for k,v in Images.items %}-->
-<!--                {% for i in v %}-->
-<!--                <img class="shadow-lg bg-dark p-5 rounded w-100" src={{i.Image}} height="300px" width="100%">-->
-<!--                {% endfor %}-->
-<!--                {% endfor %}-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<div class="footer1 rca-row">
-    <div class="footersection rca-column-8">
-    <div >
-        <ul class="rca-footer">
-            <li><a href="" class="anc1">About Us</a></li>
-            <li><a href="" class="anc">Privacy Policy</a></li>
-            <li><a href="" class="anc">Feedback</a></li>
-            <li><a href="" class="anc">Site map</a></li>
-        </ul>
-    </div>
-    <div class="rca-column-4">
-        <ul class="rca-footer rca-right">
-            <li class="anc">© 2021 <a href="" class="anc">SportsWiki</a>, All rights reserved</li>
-        </ul>
-    </div>
-    </div>
-</div>
-    </div>
-
-    
-
-    <div class="footer">
-    <!-- <div class="footersection">-->
-    <!--     <div >-->
-    <!--     <div >-->
-         <!--    <ul >-->
-    <!--                 <li><a href="" class="anc1">About Us</a></li>-->
-    <!--             <li><a href="" class="anc">Privacy Policy</a></li>-->
-    <!--             <li><a href="" class="anc">Feedback</a></li>-->
-    <!--             <li><a href="" class="anc">Site map</a></li>-->
-     <!--        </ul>-->
-    <!--     </div>-->
-    <!--     <div >-->
-    <!--         <ul >-->
-    <!--             <li class="anc">© 2021 <a href="" class="anc">SportsWiki</a>, All rights reserved</li>-->
+        <div class="footer">
+            <!-- <div class="footersection">-->
+            <!--     <div >-->
+            <!--     <div >-->
+            <!--    <ul >-->
+            <!--                 <li><a href="" class="anc1">About Us</a></li>-->
+            <!--             <li><a href="" class="anc">Privacy Policy</a></li>-->
+            <!--             <li><a href="" class="anc">Feedback</a></li>-->
+            <!--             <li><a href="" class="anc">Site map</a></li>-->
+            <!--        </ul>-->
+            <!--     </div>-->
+            <!--     <div >-->
+            <!--         <ul >-->
+            <!--             <li class="anc">© 2021 <a href="" class="anc">SportsWiki</a>, All rights reserved</li>-->
             </ul>-->
-    <!--     </div>-->
-    <!--     </div>-->
+            <!--     </div>-->
+            <!--     </div>-->
+        </div>
     </div>
 </div>
 </body>

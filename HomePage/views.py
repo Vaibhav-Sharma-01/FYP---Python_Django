@@ -3,6 +3,7 @@ from django.shortcuts import render
 import requests
 from datetime import datetime, timedelta
 from json import dumps
+import asyncio
 
 Eids = []
 
@@ -538,7 +539,6 @@ def SoccerMatchesToday():
 
 
 
-
 def bindex(request):
     Eids = GetBasketballMatchesByLeague('nba')
     News = GetLatestBasketballNews()
@@ -552,7 +552,10 @@ def bindex(request):
     NBATeamsList = []
     NBAStatsdic = {}
     NBAStatsList = []
+    count = 0
+
     for i in Eids:
+        count += 1
         querystring = {"Eid": i, "Category": "basketball", "LiveTable": "true"}
         response = requests.request("GET", url, headers=headers, params=querystring)
         res = response.json()
@@ -630,6 +633,8 @@ def bindex(request):
                 else:
                     PlayerNo = "NA"
                 datas1.append({
+                    "TeamName": Team1,
+                    "count": count,
                     "PlayerName": PlayerName,
                     "Status": Status,
                     "PlayerNo": PlayerNo
@@ -642,14 +647,15 @@ def bindex(request):
                 else:
                     PlayerNo = "NA"
                 datas2.append({
+                    "TeamName": Team2,
+                    "count": count,
                     "PlayerName": PlayerName,
                     "Status": Status,
                     "PlayerNo": PlayerNo
                 })
-
     data1.__setitem__("Team1", datas1)
     data2.__setitem__("Team2", datas2)
-
+    print(data1)
     return render(request, 'home/basketball/index.html',
                   {'Stats': NBAStatsdic, 'NBATeamDets': NBATeamsdic, 'team1details': data1, 'team2details': data2,
                    'news': News, 'Images': Image})

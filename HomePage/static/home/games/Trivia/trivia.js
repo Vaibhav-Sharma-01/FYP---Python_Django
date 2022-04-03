@@ -131,40 +131,6 @@ const funcName = async (url) => {
     return data
     }
 
-function finishPage () {
-    const contentDiv = document.createElement('div')
-    const startPagetext = document.createElement('p')
-    const startButton = document.createElement('button')
-
-    main.classList.add('finish-page')
-
-    contentDiv.classList.add('content-finish')
-    contentDiv.id = 'content-finish'
-    contentDiv.classList.add('content__finish-page')
-    main.append(contentDiv)
-
-
-
-    startPagetext.innerHTML = "8/10"
-    contentDiv.append(startPagetext)
-
-    startButton.innerText = "Play Again"
-    startButton.classList.add('start-button')
-    contentDiv.append(startButton)
-
-    startButton.addEventListener('click', ()=> {
-        const finishId = document.getElementById('content-finish')
-        finishId.style.display = 'none'
-        main.classList.remove('quiz-page')
-        main.classList.remove('finish-page')
-
-        window.location.reload()
-
-    })
-
-
-
-}
 
 document.onload(
     startPage()

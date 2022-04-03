@@ -465,30 +465,16 @@ a {
 
 .fl{
   float:left;
-  margin-left:2%;
+  margin-left:14%;
   width:30%;
-  margin-top:5%;
-}
-
-.fls{
-  float:left;
-  margin-left:2%;
-  width:30%;
-  margin-top:3%;
-}
-
-.new{
-  float: left;
-  margin-left:2%;
-  width:30%;
-  margin-top:5%;
+  margin-top:2%;
 }
 
 .fr{
   float:right;
-  margin-right:2%;
+  margin-right:14%;
   width:30%;
-  margin-top:5%;
+  margin-top:2%;
 }
 
 
@@ -648,4 +634,8 @@ a {
   margin-right: 9%;
   height: 67vh;
   width: 25%;
+}
+
+.clear{
+clear: both;
 }

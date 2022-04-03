@@ -9,6 +9,7 @@
     display: flex;
     flex-wrap: wrap;
     margin-left: -15px;
+    padding-top: 181px;
 }
 
 .cols{
@@ -19,7 +20,7 @@
     cursor: pointer;
     height: 100%;
     width: 107%;
-    padding: 15px;
+    padding: 49px;
     position: relative;
     right: 12px;
 }

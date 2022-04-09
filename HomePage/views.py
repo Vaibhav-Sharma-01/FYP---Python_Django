@@ -4,8 +4,7 @@ import requests
 from datetime import datetime, timedelta
 from json import dumps
 import asyncio
-
-Eids = []
+import aiohttp
 
 headers = {
     'x-rapidapi-host': "livescore6.p.rapidapi.com",
@@ -21,22 +20,31 @@ headers = {
 def home(request):
     return render(request, 'home/HomePage.html')
 
-
-def index(request):
-    News = GetLatestCricketNews()
-    Image = CricketGallery()
-    Eids = GetCricketLiveMatches()
+async def getTasks(session,id):
     url = "https://livescore6.p.rapidapi.com/matches/v2/detail"
+    querystring = {"Eid": id, "Category": "cricket", "LiveTable": "true"}
+    async with session.get(url, headers=headers, params=querystring) as response:
+        response = await response.json()
+    return response
+
+async def index(request):
+    r = await asyncio.gather(GetCricketLiveMatches(),GetLatestCricketNews(),CricketGallery())
+    Eids = r[0]
+    News = r[1]
+    Image = r[2]
     datas = []
     Team = []
     data = {}
-    for i in Eids:
-        querystring = {"Eid": i, "Category": "cricket", "LiveTable": "true"}
-        response = requests.request("GET", url, headers=headers, params=querystring)
-        res = response.json()
-        Team.append(res['Stg']['Snm'])
-        length = len(res['SDInn'])
-        for j in res['SDInn']:
+    async with aiohttp.ClientSession() as session:
+        tasks=[]
+        for i in Eids:
+            task = asyncio.ensure_future(getTasks(session, i))
+            tasks.append(task)
+        res = await asyncio.gather(*tasks)
+    for k in range(len(Eids)):
+        Team.append(res[k]['Stg']['Snm'])
+        length = len(res[k]['SDInn'])
+        for j in res[k]['SDInn']:
             Teams = j['Ti']
             points = j['Pt']
             wickets = j['Wk']
@@ -52,12 +60,11 @@ def index(request):
                 "overs": overs,
                 "runrate": runrate,
                 "innings": InnNo,
-                'Eid': i
+                'Eid': Eids[k]
             })
     data.__setitem__(length, datas)
 
     return render(request, 'home/cricket/index.html', {'data': data, 'news': News, 'MatchInfo': Team, 'Images': Image})
-
 
 def widgets(request):
     # Upcoming Date
@@ -153,7 +160,6 @@ def widgets(request):
     urls = "https://livescore6.p.rapidapi.com/matches/v2/detail"
     querystring = {"Eid": Eid, "Category": "cricket", "LiveTable": "true"}
     response = requests.request("GET", urls, headers=headers, params=querystring)
-    print(response)
     res = response.json()
     Team = res['Stg']['Snm']
     Status = res['ECo']
@@ -256,18 +262,18 @@ def Main(request):
                 'StrikeRate': SR
             })
     data.__setitem__(length, datas)
-    print(data)
     return render(request, 'home/cricket/main.html', {'data': data})
 
 
-def GetCricketLiveMatches():
-    url = "https://livescore6.p.rapidapi.com/matches/v2/list-live"
-    querystring = {"Category": "cricket"}
-    response = requests.request("GET", url, headers=headers, params=querystring)
-    res = response.json()
+async def GetCricketLiveMatches():
+    async with aiohttp.ClientSession() as session:
+        url = "https://livescore6.p.rapidapi.com/matches/v2/list-live"
+        querystring = {"Category": "cricket"}
+        async with session.get(url, headers=headers, params=querystring) as response:
+            response = await response.json()
+    data = response['Stages']
     Eid = []
-    print(res)
-    for i in res['Stages']:
+    for i in data:
         Eid.append(i['Events'][0]['Eid'])
     return Eid
 
@@ -282,14 +288,22 @@ def GetCricketMatchesByDate(Date):
         Eid.append(i['Events'][0]['Eid'])
     return Eid
 
-
-def GetLatestCricketNews():
-    url = "https://livescore6.p.rapidapi.com/news/v2/list-by-sport"
+def getNewsTasks(session):
+    tasks = []
     querystring = {"category": "2021020913321411486", "page": "1"}
-    response = requests.request("GET", url, headers=headers, params=querystring)
-    data = response.json()['data']
+    url = "https://livescore6.p.rapidapi.com/news/v2/list-by-sport"
+    tasks.append(session.get(url, headers=headers, params=querystring))
+    return tasks
+async def GetLatestCricketNews():
     news = []
     newss = {}
+    res = []
+    async with aiohttp.ClientSession() as session:
+        tasks = getNewsTasks(session)
+        responses = await asyncio.gather(*tasks)
+        for response in responses:
+            res.append(await response.json())
+    data = res[0]['data']
     for i in data:
         news.append({
             'Title': i['title'],
@@ -299,21 +313,21 @@ def GetLatestCricketNews():
         })
     newss.__setitem__("news", news)
     return newss
-
-
-def CricketGallery():
-    url = "https://livescore6.p.rapidapi.com/news/v2/list-by-sport"
-    querystring = {"category": "2021020913321411486", "page": "1"}
-    response = requests.request("GET", url, headers=headers, params=querystring)
-    data = response.json()['data']
+async def CricketGallery():
     Image = []
     Images = {}
+    res=[]
+    async with aiohttp.ClientSession() as session:
+        tasks = getNewsTasks(session)
+        responses = await asyncio.gather(*tasks)
+        for response in responses:
+            res.append(await response.json())
+    data = res[0]['data']
     for i in data:
         Image.append({
             'Image': i['image']['data']['urls']['uploaded']['gallery']
         })
     Images.__setitem__("img", Image)
-    print(Images)
     return Images
 
 
@@ -655,7 +669,6 @@ def bindex(request):
                 })
     data1.__setitem__("Team1", datas1)
     data2.__setitem__("Team2", datas2)
-    print(data1)
     return render(request, 'home/basketball/index.html',
                   {'Stats': NBAStatsdic, 'NBATeamDets': NBATeamsdic, 'team1details': data1, 'team2details': data2,
                    'news': News, 'Images': Image})

@@ -55,8 +55,8 @@
                     <div class="leaguestypes">
                         {% for k,v in past.items %}
                         {% for i in v %}
-                        <button type="button" class="btn btn-light mx-4"><span><img
-                                src="{%static 'home/football/nba.png' %}">{{i.Team}}</span></button>
+                        <button type="button" class="btn btn-light mx-4" style="width:20%"><span><img
+                                src="{%static 'home/football/football.png' %}" width="8%">{{i.Team}}</span></button>
                         {% endfor %}
                         {% endfor %}
                     </div>
@@ -121,7 +121,33 @@
                                         <th>Pld</th>
                                         <th>Draws</th>
                                     </tr>
-                                    {% for k,v in pointstable.items %}
+                                    {% for k,v in pointstable1.items %}
+                                    {% for i in v %}
+                                    <tr>
+                                        <td>{{i.Count}}</td>
+                                        <td>{{i.Team}}</td>
+                                        <td>{{i.Wins}}</td>
+                                        <td>{{i.Loose}}</td>
+                                        <td>{{i.Points}}</td>
+                                        <td>{{i.Played}}</td>
+                                        <td>{{i.Draws}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    {% endfor %}
+                                    {% for k,v in pointstable2.items %}
+                                    {% for i in v %}
+                                    <tr>
+                                        <td>{{i.Count}}</td>
+                                        <td>{{i.Team}}</td>
+                                        <td>{{i.Wins}}</td>
+                                        <td>{{i.Loose}}</td>
+                                        <td>{{i.Points}}</td>
+                                        <td>{{i.Played}}</td>
+                                        <td>{{i.Draws}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    {% endfor %}
+                                    {% for k,v in pointstable3.items %}
                                     {% for i in v %}
                                     <tr>
                                         <td>{{i.Count}}</td>
@@ -156,21 +182,68 @@
                 </div>
 
                 <div class="stats shadow-lg bg-white mt-4 mb-4 rounded">
-                    <h3 class="text-dark headlines">STATS</h3>
-
+                    <h3 class="text-dark headlines" style="height: 55px;">Stats Of Europa League</h3>
+                    {% for k,v in stats1.items %}
+                    {% for i in v %}
                     <div class="black shadow-lg bg-light p-5 m-5 rounded">
-                        {% for k,v in stats.items %}
-                        {% for i in v %}
-                        <p><span class="leftside">Team 1</span><span></span><span class="rightside">Team 2</span></p>
-                        <p><span class="leftside">{{i.Score}}</span><span>:</span><span class="rightside">{{i.Score2}}</span></p>
-                        <p><span class="leftside">{{i.YellowCards}}</span><span>YellowCards</span><span class="rightside">{{i.YellowCards2}}</span></p>
-                        <p><span class="leftside">{{i.Possession}}</span><span>Possession</span><span class="rightside">{{i.Possession2}}</span></p>
-                        <p><span class="leftside">{{i.Offside}}</span><span>Offside</span><span class="rightside">{{i.Offside2}}</span></p>
-                        <p><span class="leftside">{{i.Fouls}}</span><span>Fouls</span><span class="rightside">{{i.Fouls2}}</span></p>
-                        <p><span class="leftside">{{i.Corners}}</span><span>Corners</span><span class="rightside">{{i.Corners2}}</span></p>
-                        {% endfor %}
-                        {% endfor %}
+                        <p><span class="leftside">{{i.Team}}</span><span>v/s</span><span
+                                class="rightside">{{i.Team2}}</span></p>
+                        <p><span class="leftside">{{i.Score}}</span><span>score</span><span class="rightside">{{i.Score2}}</span>
+                        </p>
+                        <p><span class="leftside">{{i.YellowCards}}</span><span>YellowCards</span><span
+                                class="rightside">{{i.YellowCards2}}</span></p>
+                        <p><span class="leftside">{{i.Possession}}</span><span>Possession</span><span class="rightside">{{i.Possession2}}</span>
+                        </p>
+                        <p><span class="leftside">{{i.Offside}}</span><span>Offside</span><span class="rightside">{{i.Offside2}}</span>
+                        </p>
+                        <p><span class="leftside">{{i.Fouls}}</span><span>Fouls</span><span class="rightside">{{i.Fouls2}}</span>
+                        </p>
+                        <p><span class="leftside">{{i.Corners}}</span><span>Corners</span><span class="rightside">{{i.Corners2}}</span>
+                        </p>
                     </div>
+                    {% endfor %}
+                    {% endfor %}
+
+                    {% for k,v in stats2.items %}
+                    {% for i in v %}
+                    <div class="black shadow-lg bg-light p-5 m-5 rounded">
+                        <p><span class="leftside">{{i.Team}}</span><span>v/s</span><span
+                                class="rightside">{{i.Team2}}</span></p>
+                        <p><span class="leftside">{{i.Score}}</span><span>score</span><span class="rightside">{{i.Score2}}</span>
+                        </p>
+                        <p><span class="leftside">{{i.YellowCards}}</span><span>YellowCards</span><span
+                                class="rightside">{{i.YellowCards2}}</span></p>
+                        <p><span class="leftside">{{i.Possession}}</span><span>Possession</span><span class="rightside">{{i.Possession2}}</span>
+                        </p>
+                        <p><span class="leftside">{{i.Offside}}</span><span>Offside</span><span class="rightside">{{i.Offside2}}</span>
+                        </p>
+                        <p><span class="leftside">{{i.Fouls}}</span><span>Fouls</span><span class="rightside">{{i.Fouls2}}</span>
+                        </p>
+                        <p><span class="leftside">{{i.Corners}}</span><span>Corners</span><span class="rightside">{{i.Corners2}}</span>
+                        </p>
+                    </div>
+                    {% endfor %}
+                    {% endfor %}
+                    {% for k,v in stats3.items %}
+                    {% for i in v %}
+                    <div class="black shadow-lg bg-light p-5 m-5 rounded">
+                        <p><span class="leftside">{{i.Team}}</span><span>v/s</span><span
+                                class="rightside">{{i.Team2}}</span></p>
+                        <p><span class="leftside">{{i.Score}}</span><span>score</span><span class="rightside">{{i.Score2}}</span>
+                        </p>
+                        <p><span class="leftside">{{i.YellowCards}}</span><span>YellowCards</span><span
+                                class="rightside">{{i.YellowCards2}}</span></p>
+                        <p><span class="leftside">{{i.Possession}}</span><span>Possession</span><span class="rightside">{{i.Possession2}}</span>
+                        </p>
+                        <p><span class="leftside">{{i.Offside}}</span><span>Offside</span><span class="rightside">{{i.Offside2}}</span>
+                        </p>
+                        <p><span class="leftside">{{i.Fouls}}</span><span>Fouls</span><span class="rightside">{{i.Fouls2}}</span>
+                        </p>
+                        <p><span class="leftside">{{i.Corners}}</span><span>Corners</span><span class="rightside">{{i.Corners2}}</span>
+                        </p>
+                    </div>
+                    {% endfor %}
+                    {% endfor %}
                 </div>
             </div>
 

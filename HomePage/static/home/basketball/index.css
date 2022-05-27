@@ -17,29 +17,17 @@ body{
     display: none;
 }
 .header{
-    grid-area:header;
     width:100%;
     
     color:rgb(8, 8, 8);
     padding:10px;
     margin-bottom: 10px;
 }
-.main{
-    
-    display:grid;
-    grid-template-areas:'header header header header header header'
-                        'left right right right right right'   
-                        'left footer footer footer footer footer';
-    margin:20px;
-    height:auto;
-                    }
 .heading{
     text-align: left;
     margin:8px;
     padding:5px;
-    background-color: red;
     width:auto;
-    color:rgb(22, 20, 20);
     border-radius: 5px;
     position:absolute;
 }
@@ -54,31 +42,26 @@ body{
     position:absolute;
 }
 .right{
-    width:100%;
-    grid-area: right;
-    color:white;
-    height:49%;
+    width: 100%;
+    color: white;
+    height: 83%;
     border-radius: 15px;
-    margin-left:9px;
+    margin-right: 14px;
 }
 .left{
-    grid-area: left;
-    width:100%;
-    color:white;
+    width: 99%;
+    color: white;
     border-radius: 5px;
-    margin-right: 9px;
-    height: 49%;
+    margin-left: 15px;
+    height: 68vh;
    
 }
 .livematches{
-    display:inline-flexbox;
-    width:auto;
-    background-color:black;
-    border-radius: 15px;
-    height:25%;
+    width: 48%;
+    height: 450px;
     text-align: center;
     overflow: scroll;
-    box-shadow: 0 4px 8px 0 rgba(49, 39, 39, 0.2);
+    float: left;
 }
 .text{
     border-left: 5px solid
@@ -102,7 +85,7 @@ body{
     width:48%;
     float: left;
     border-radius: 15px;
-    height:63%;
+    height:100%;
     margin-left: 10px;
     
     text-align: center;
@@ -115,7 +98,7 @@ body{
     float:right;
    
     border-radius: 15px;
-    height:63%;
+    height:100%;
     text-align: center;
     overflow: scroll;
     box-shadow: 5px 5px 5px 5px rgba(14, 11, 11, 0.2);
@@ -153,25 +136,23 @@ tr{
     height:auto;
 }*/
 .stats{
-    margin-top: 10px;
-    width:auto;
-    background-color:black;
-    border-radius: 15px;
-    height:350px;
+    width: 30%;
+    height: 450px;
     text-align: center;
     overflow: scroll;
-    box-shadow: 0 15px 15px 0 rgba(15, 15, 15, 0.2);
+    box-shadow: 0 15px 15px 0 rgb(15 15 15 / 20%);
+    float: left;
+    margin-left: 1%;
    
 }
 .newsheadlines{
-    margin-top: 10px;
-    width:auto;
-    background-color:black;
-    border-radius: 15px;
-    height:350px;
+    float: right;
+    width: 48%;
+    height: 450px;
     text-align: center;
     overflow: scroll;
-    box-shadow: 0 15px 15px 0 rgba(15, 15, 15, 0.2);
+    box-shadow: 0 15px 15px 0 rgb(15 15 15 / 20%);
+    margin-right: 2%;
    
 }
 .Pgallery{
@@ -187,12 +168,12 @@ tr{
 
 .footer1{
     width:100%;
-   /* grid-area:footer;*/
-    height:5px;
+    height:30px;
     float:right;
     border-radius: 5px;
     margin:45px 0px;
     color:white;
+    text-align: center;
 }
 ul li{
     display: inline;
@@ -276,10 +257,40 @@ margin-left: 1%;
 
 .div-size{
 width: 100%;
-height: 164vh;
-overflow: hidden;
 }
 
 .bgcolor{
   background-color: #ffffff;
+}
+
+.head {
+  width: 99%;
+  margin-left: 8px;
+}
+
+.head button{
+  margin: 20px 0px 20px 0px;
+}
+
+.head button:hover{
+  background-color: grey;
+}
+
+div.leaguestypes{
+  margin: 4px, 4px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+
+.b1{
+background-color: #00000085;
+}
+
+.text-color{
+color:burlywood;
+}
+
+.b2{
+background-color: #d9c452;
 }

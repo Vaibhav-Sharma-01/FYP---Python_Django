@@ -30,10 +30,7 @@
         {% for i in v %}
         <div id={{i.index}}>
             <div class="row">
-                <div class="col-3">
-                    <p id="time">15</p>
-                </div>
-                <div class="col-9">
+                <div class="col-12">
                     <div class="row">
                         <div class="col-12">QUESTION {{i.index}} OF 10</div>
                     </div>
@@ -92,20 +89,6 @@
 </div>
 </body>
 <script type="text/javascript">
-
-    var countDownDate = new Date().getTime()+16000;
-    var x = setInterval(function() {
-    var now = new Date().getTime();
-    var distance = countDownDate - now;
-    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    document.getElementById("time").innerHTML = seconds;
-    if (distance < 0) {
-        clearInterval(x);
-        document.getElementById('time').id = 'div2';
-        document.getElementById("div2").innerHTML = "0";
-        document.getElementById("btnext").click();
-      }
-    }, 1000);
     let a = "";
     let cov = "{{Ans}}";
 
@@ -135,19 +118,7 @@
             document.getElementById("btnext").style.display = "none";
             document.getElementById("btsubmit").style.display = "block";
         }
-        var countDownDate = new Date().getTime()+16000;
-        var x = setInterval(function() {
-        var now = new Date().getTime();
-        var distance = countDownDate - now;
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        document.getElementById("time").innerHTML = seconds;
-        if (distance < 0) {
-            clearInterval(x);
-            document.getElementById('time').id = 'div2';
-            document.getElementById("div2").innerHTML = "0";
-            document.getElementById("btnext").click();
-          }
-        }, 1000);
+
         if(status == "correct"){
             mainscore+= 1;
         }
@@ -159,7 +130,7 @@
 
     function submit(){
         var txt;
-  if (confirm("Your Score is: ",mainscore)) {
+  if (confirm("Your Score is: "+mainscore)) {
     window.open('home',target="_self");
   } else {
     window.open('trivia',target="_self");

@@ -28,6 +28,11 @@ urlpatterns = [
     re_path('football/index', TemplateView.as_view(template_name="home/football/index.html"),
             name='findex'),
 
+    path('tennis/index', views.tindex, name='tindex'),
+
+    re_path('tennis/index', TemplateView.as_view(template_name="home/tennis/index.html"),
+            name='tindex'),
+
     path('basketball/index', views.bindex, name='bindex'),
 
     re_path('basketball/index', TemplateView.as_view(template_name="home/basketball/index.html"),

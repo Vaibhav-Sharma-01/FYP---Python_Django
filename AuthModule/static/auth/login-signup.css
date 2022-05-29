@@ -5,7 +5,7 @@
 }
 
 body {
-  background-image: url("https://images.unsplash.com/photo-1631194758628-71ec7c35137e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1500&q=80");
+  background-image: url("banner.jpeg");
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,6 +13,8 @@ body {
   font-family: "Montserrat", sans-serif;
   height: 50vh;
   margin: 150px 0 50px;
+  background-repeat: no-repeat;
+    background-size: cover;
 }
 
 h1 {

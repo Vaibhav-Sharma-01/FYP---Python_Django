@@ -7,21 +7,20 @@ from json import dumps
 import asyncio
 import aiohttp
 
-headers = {
-    'x-rapidapi-host': "livescore6.p.rapidapi.com",
-    'x-rapidapi-key': "2f7d4e24b8msh1eca7845910287cp1caff8jsnc9bd026ddb82"
-}
-
 # headers = {
-#     "X-RapidAPI-Host": "livescore6.p.rapidapi.com",
-#     "X-RapidAPI-Key": "4bbc34c3bemsh75bdcf62714c848p1ecb0bjsncc940541a16b"
+#     'x-rapidapi-host': "livescore6.p.rapidapi.com",
+#     'x-rapidapi-key': "2f7d4e24b8msh1eca7845910287cp1caff8jsnc9bd026ddb82"
 # }
-
 
 # headers = {
 #     'x-rapidapi-host': "livescore6.p.rapidapi.com",
 #     'x-rapidapi-key': "179f92de74msh12ff1e0eeed7f88p15465djsn09f3cb5c5863"
 # }
+
+headers = {
+	"X-RapidAPI-Host": "livescore6.p.rapidapi.com",
+	"X-RapidAPI-Key": "253e8389f6msh66b34d07e515957p1e944ejsn4d9f6216ded8"
+}
 
 
 def home(request):
@@ -365,7 +364,7 @@ async def CricketGallery():
     for i in data:
         try:
             Image.append({
-            'Image': i['image']['data']['urls']['uploaded']['gallery']
+                'Image': i['image']['data']['urls']['uploaded']['gallery']
             })
         except Exception:
             pass
@@ -375,8 +374,13 @@ async def CricketGallery():
 
 async def findex(request):
     PastDate = PastMatches()
+    Today = MatchesToday()
     querystring = {"Category": "soccer", "Date": PastDate}
-    r = await asyncio.gather(GetSoccerLiveMatches(), GetLatestSoccerNews(), SoccerGallery(), matchesPast(querystring))
+    r = await asyncio.gather(GetSoccerMatchesByDate(PastDate), GetLatestSoccerNews(), SoccerGallery(),
+                             matchesPast(querystring))
+    # r1 = await asyncio.gather(GetLatestSoccerNews())
+    # r2 = await asyncio.gather(SoccerGallery())
+    # r3 = await asyncio.gather(matchesPast(querystring))
     Eids = r[0]
     News = r[1]
     Image = r[2]
@@ -395,18 +399,22 @@ async def findex(request):
     liveteams = {}
     # , soccerStats(Eids4)
     rl = await asyncio.gather(liveTeams(Eids), soccerStats(Eids2), soccerStats(Eids3))
+    # rl1 = await asyncio.gather()
+    # rl2 = await asyncio.gather()
     liveRes = rl[0]
     statsRes1 = rl[1]
     statsRes2 = rl[2]
     # statsRes3 = rl[3]
     for i in range(len(liveRes)):
         # League Data
-
-        Team1 = liveRes[i]['T1'][0]['Nm']
-        Team2 = liveRes[i]['T2'][0]['Nm']
-        Team1Img = liveRes[i]['T1'][0]['Img']
-        Team2Img = liveRes[i]['T2'][0]['Img']
-        Live_Teams.append({'T1': Team1, 'T2': Team2, 'T1Img': Team1Img, 'T2Img': Team2Img})
+        if ('T1' in liveRes[i]):
+            Team1 = liveRes[i]['T1'][0]['Nm']
+            Team2 = liveRes[i]['T2'][0]['Nm']
+            Team1Img = liveRes[i]['T1'][0]['Img']
+            Team2Img = liveRes[i]['T2'][0]['Img']
+            Live_Teams.append({'T1': Team1, 'T2': Team2, 'T1Img': Team1Img, 'T2Img': Team2Img})
+        else:
+            pass
     liveteams.__setitem__("live", Live_Teams)
     # Leagues Details Ends Here
 
@@ -523,7 +531,7 @@ async def findex(request):
                 'YellowCards2': l['Stat'][1]['Ycs']
             })
         else:
-            print("not found")
+            pass
     statsdata2.__setitem__("stats2", Stats2)
 
     # Stats3 = []
@@ -556,9 +564,11 @@ async def findex(request):
 
     return render(request, 'home/football/index.html',
                   {'live': liveteams, 'stats1': statsdata1, 'stats2': statsdata2,
-                   'pointstable1': ptable1, 'pointstable2': ptable2,  'news': News,
+                   'pointstable1': ptable1, 'pointstable2': ptable2, 'news': News,
                    'Images': Image,
                    'past': datadi})
+
+
 # 'pointstable3': ptable3,
 #  'stats3': statsdata3,
 
@@ -597,14 +607,16 @@ async def GetSoccerLiveMatches():
     return Eid
 
 
-def GetSoccerMatchesByDate(Date):
-    url = "https://livescore6.p.rapidapi.com/matches/v2/list-by-date"
-    querystring = {"Category": "soccer", "Date": Date}
-    response = requests.request("GET", url, headers=headers, params=querystring)
-    res = response.json()
+async def GetSoccerMatchesByDate(Date):
+    async with aiohttp.ClientSession() as session:
+        url = "https://livescore6.p.rapidapi.com/matches/v2/list-by-date"
+        querystring = {"Category": "soccer", "Date": Date}
+        async with session.get(url, headers=headers, params=querystring) as response:
+            response = await response.json()
     Eid = []
-    for i in res['Stages']:
-        Eid.append(i['Events'][0]['Eid'])
+    for i in range(len(response['Stages'])):
+        if (i < 5):
+            Eid.append(response['Stages'][i]['Events'][0]['Eid'])
     return Eid
 
 
@@ -626,7 +638,6 @@ async def GetSoccerMatchesByLeague(league, grp):
     Eid = []
     for i in res['Stages'][0]['Events']:
         Eid.append(i['Eid'])
-    print(Eid)
     return Eid
 
     # for i in res['Stages']:
@@ -937,6 +948,197 @@ def PastBasketballMatches():
     presentday = datetime.now()
     yesterday = presentday - timedelta(1)
     return yesterday.strftime('%Y%m%d')
+
+
+async def tindex(request):
+    PastDate = PastMatches()
+    Today = MatchesToday()
+    querystring = {"Category": "tennis", "Date": PastDate}
+    r = await asyncio.gather(GetTennisMatchesByDate(Today), GetLatestTennisNews(), tennisGallery(),
+                             matchesPast(querystring))
+    Eids = r[0]
+    News = r[1]
+    Image = r[2]
+    datadi = r[3]
+
+    # Leagues details Starts Here
+    Live_Teams = []
+    liveteams = {}
+    # , soccerStats(Eids4)
+    rl = await asyncio.gather(liveTeams1(Eids))
+    liveRes = rl[0]
+    for i in range(len(liveRes)):
+        # League Data
+
+        Team1 = liveRes[i]['T1'][0]['Nm']
+        Team2 = liveRes[i]['T2'][0]['Nm']
+        CoNm1 = liveRes[i]['T1'][0]['CoNm']
+        CoNm2 = liveRes[i]['T2'][0]['CoNm']
+
+        Live_Teams.append({'T1': Team1, 'T2': Team2, 'C1': CoNm1, 'C2': CoNm2})
+    liveteams.__setitem__("live", Live_Teams)
+    # Leagues Details Ends Here
+    Live_Teams1 = []
+    liveteams1 = {}
+    for i in range(len(liveRes)):
+        # League Data
+        Com = []
+        if ('Com' in liveRes[i]):
+            Team1 = liveRes[i]['T1'][0]['Nm']
+            Team2 = liveRes[i]['T2'][0]['Nm']
+            for k in liveRes[i]['Com']:
+                Com.append(k['Txt'])
+            Live_Teams1.append({'T1': Team1, 'T2': Team2, 'Com': Com})
+    liveteams1.__setitem__("live", Live_Teams1)
+
+    Stats = []
+    stats = {}
+    for i in range(len(liveRes)):
+        # League Data
+        if ('Tr1' in liveRes[i]):
+            Team1 = liveRes[i]['T1'][0]['Nm']
+            Team2 = liveRes[i]['T2'][0]['Nm']
+            Score1 = liveRes[i]['Tr1']
+            Score2 = liveRes[i]['Tr2']
+            set11 = liveRes[i]['Tr1S1']
+            set12 = liveRes[i]['Tr2S1']
+            set21 = liveRes[i]['Tr1S2']
+            set22 = liveRes[i]['Tr2S2']
+            if('Tr1S3' in liveRes[i].keys()):
+                set31 = liveRes[i]['Tr1S3']
+                set32 = liveRes[i]['Tr2S3']
+            Stats.append({'T1': Team1, 'T2': Team2, 'Score1': Score1, 'Score2': Score2, 'set11': set11, 'set12': set12,
+                          'set21': set21, 'set22': set22, 'set31': set31, 'set32': set32})
+    stats.__setitem__("stats", Stats)
+
+    # pointsTable starts here
+
+    # Stats3 = []
+    # statsdata3 = {}
+    #
+    # for k in statsRes3:
+    #     # Stats Data
+    #     if ('Tr1' in k.keys()):
+    #         Stats3.append({
+    #             'Score': k['Tr1'],
+    #             'Team': k['T1'][0]['Nm'],
+    #             'Possession': k['Stat'][0]['Pss'],
+    #             'Offside': k['Stat'][0]['Ofs'],
+    #             'Fouls': k['Stat'][0]['Fls'],
+    #             'Corners': k['Stat'][0]['Cos'],
+    #             'YellowCards': k['Stat'][0]['Ycs'],
+    #             'Score2': k['Tr2'],
+    #             'Team2': k['T2'][0]['Nm'],
+    #             'Possession2': k['Stat'][1]['Pss'],
+    #             'Offside2': k['Stat'][1]['Ofs'],
+    #             'Fouls2': k['Stat'][1]['Fls'],
+    #             'Corners2': k['Stat'][1]['Cos'],
+    #             'YellowCards2': k['Stat'][1]['Ycs']
+    #         })
+    # statsdata3.__setitem__("stats", Stats3)
+    # # Stats Details Ends Here
+    #
+    # # Previous Matches
+    # # Previous Matches Ends Here
+
+    return render(request, 'home/tennis/index.html',
+                  {'live': liveteams, 'news': News, 'Images': Image, 'past': datadi, 'live1': liveteams1, 'stats': stats})
+
+
+# 'pointstable3': ptable3,
+#  'stats3': statsdata3,
+
+async def liveTeams1(Eids):
+    res = []
+    url = "https://livescore6.p.rapidapi.com/matches/v2/detail"
+    async with aiohttp.ClientSession() as session:
+        for i in Eids:
+            querystring = {"Eid": i, "Category": "tennis", "LiveTable": "true"}
+            async with session.get(url, headers=headers, params=querystring) as response:
+                res.append(await response.json())
+    return res
+
+
+async def GetTennisLiveMatches():
+    async with aiohttp.ClientSession() as session:
+        url = "https://livescore6.p.rapidapi.com/matches/v2/list-live"
+        querystring = {"Category": "tennis"}
+        async with session.get(url, headers=headers, params=querystring) as response:
+            response = await response.json()
+    data = response['Stages']
+    Eid = []
+    for i in data:
+        Eid.append(i['Events'][0]['Eid'])
+    return Eid
+
+
+async def GetTennisMatchesByDate(Date):
+    async with aiohttp.ClientSession() as session:
+        url = "https://livescore6.p.rapidapi.com/matches/v2/list-by-date"
+        querystring = {"Category": "tennis", "Date": Date}
+        async with session.get(url, headers=headers, params=querystring) as response:
+            response = await response.json()
+    Eid = []
+    for i in response['Stages']:
+        Eid.append(i['Events'][0]['Eid'])
+    return Eid
+
+
+def getNewsTaskTennis(session):
+    tasks = []
+    querystring = {"category": "2021020913321150030", "page": "1"}
+    url = "https://livescore6.p.rapidapi.com/news/v2/list-by-sport"
+    tasks.append(session.get(url, headers=headers, params=querystring))
+    return tasks
+
+
+async def GetLatestTennisNews():
+    news = []
+    newss = {}
+    res = []
+    async with aiohttp.ClientSession() as session:
+        tasks = getNewsTaskTennis(session)
+        responses = await asyncio.gather(*tasks)
+        for response in responses:
+            res.append(await response.json())
+    data = res[0]['data']
+    for i in data:
+        try:
+            news.append({
+                'Title': i['title'],
+                'Time': i['published_at'],
+                'Body': i['body'][0]['data']['content'].replace("</p>", "").replace("<p>", ""),
+                'Image': i['image']['data']['urls']['uploaded']['gallery']
+            })
+        except Exception:
+            news.append({
+                'Title': i['title'],
+                'Time': i['published_at'],
+                'Body': i['body'][0]['data']['content'].replace("</p>", "").replace("<p>", ""),
+            })
+    newss.__setitem__("news", news)
+    return newss
+
+
+async def tennisGallery():
+    Image = []
+    Images = {}
+    res = []
+    async with aiohttp.ClientSession() as session:
+        tasks = getNewsTaskTennis(session)
+        responses = await asyncio.gather(*tasks)
+        for response in responses:
+            res.append(await response.json())
+    data = res[0]['data']
+    for i in data:
+        try:
+            Image.append({
+                'Image': i['image']['data']['urls']['uploaded']['gallery']
+            })
+        except Exception:
+            pass
+    Images.__setitem__("img", Image)
+    return Images
 
 
 def triviaindex(request):

@@ -12,6 +12,11 @@ headers = {
     'x-rapidapi-key': "2f7d4e24b8msh1eca7845910287cp1caff8jsnc9bd026ddb82"
 }
 
+# headers = {
+#     "X-RapidAPI-Host": "livescore6.p.rapidapi.com",
+#     "X-RapidAPI-Key": "4bbc34c3bemsh75bdcf62714c848p1ecb0bjsncc940541a16b"
+# }
+
 
 # headers = {
 #     'x-rapidapi-host': "livescore6.p.rapidapi.com",
@@ -330,12 +335,19 @@ async def GetLatestCricketNews():
             res.append(await response.json())
     data = res[0]['data']
     for i in data:
-        news.append({
-            'Title': i['title'],
-            'Time': i['published_at'],
-            'Body': i['body'][0]['data']['content'].replace("</p>", "").replace("<p>", ""),
-            'Image': i['image']['data']['urls']['uploaded']['gallery']
-        })
+        try:
+            news.append({
+                'Title': i['title'],
+                'Time': i['published_at'],
+                'Body': i['body'][0]['data']['content'].replace("</p>", "").replace("<p>", ""),
+                'Image': i['image']['data']['urls']['uploaded']['gallery']
+            })
+        except Exception:
+            news.append({
+                'Title': i['title'],
+                'Time': i['published_at'],
+                'Body': i['body'][0]['data']['content'].replace("</p>", "").replace("<p>", ""),
+            })
     newss.__setitem__("news", news)
     return newss
 
@@ -351,9 +363,12 @@ async def CricketGallery():
             res.append(await response.json())
     data = res[0]['data']
     for i in data:
-        Image.append({
+        try:
+            Image.append({
             'Image': i['image']['data']['urls']['uploaded']['gallery']
-        })
+            })
+        except Exception:
+            pass
     Images.__setitem__("img", Image)
     return Images
 
@@ -386,6 +401,7 @@ async def findex(request):
     # statsRes3 = rl[3]
     for i in range(len(liveRes)):
         # League Data
+
         Team1 = liveRes[i]['T1'][0]['Nm']
         Team2 = liveRes[i]['T2'][0]['Nm']
         Team1Img = liveRes[i]['T1'][0]['Img']
@@ -637,12 +653,19 @@ async def GetLatestSoccerNews():
             res.append(await response.json())
     data = res[0]['data']
     for i in data:
-        news.append({
-            'Title': i['title'],
-            'Time': i['published_at'],
-            'Body': i['body'][0]['data']['content'].replace("</p>", "").replace("<p>", ""),
-            'Image': i['image']['data']['urls']['uploaded']['gallery']
-        })
+        try:
+            news.append({
+                'Title': i['title'],
+                'Time': i['published_at'],
+                'Body': i['body'][0]['data']['content'].replace("</p>", "").replace("<p>", ""),
+                'Image': i['image']['data']['urls']['uploaded']['gallery']
+            })
+        except Exception:
+            news.append({
+                'Title': i['title'],
+                'Time': i['published_at'],
+                'Body': i['body'][0]['data']['content'].replace("</p>", "").replace("<p>", ""),
+            })
     newss.__setitem__("news", news)
     return newss
 
@@ -658,9 +681,12 @@ async def SoccerGallery():
             res.append(await response.json())
     data = res[0]['data']
     for i in data:
-        Image.append({
-            'Image': i['image']['data']['urls']['uploaded']['gallery']
-        })
+        try:
+            Image.append({
+                'Image': i['image']['data']['urls']['uploaded']['gallery']
+            })
+        except Exception:
+            pass
     Images.__setitem__("img", Image)
     return Images
 
@@ -863,12 +889,19 @@ async def GetLatestBasketballNews():
             res.append(await response.json())
     data = res[0]['data']
     for i in data:
-        news.append({
-            'Title': i['title'],
-            'Time': i['published_at'],
-            'Body': i['body'][0]['data']['content'].replace("</p>", "").replace("<p>", ""),
-            'Image': i['image']['data']['urls']['uploaded']['gallery']
-        })
+        try:
+            news.append({
+                'Title': i['title'],
+                'Time': i['published_at'],
+                'Body': i['body'][0]['data']['content'].replace("</p>", "").replace("<p>", ""),
+                'Image': i['image']['data']['urls']['uploaded']['gallery']
+            })
+        except Exception:
+            news.append({
+                'Title': i['title'],
+                'Time': i['published_at'],
+                'Body': i['body'][0]['data']['content'].replace("</p>", "").replace("<p>", ""),
+            })
     newss.__setitem__("news", news)
     return newss
 
@@ -884,9 +917,12 @@ async def BasketballGallery():
             res.append(await response.json())
     data = res[0]['data']
     for i in data:
-        Image.append({
-            'Image': i['image']['data']['urls']['uploaded']['gallery']
-        })
+        try:
+            Image.append({
+                'Image': i['image']['data']['urls']['uploaded']['gallery']
+            })
+        except Exception:
+            pass
     Images.__setitem__("img", Image)
     return Images
 

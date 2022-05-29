@@ -34,6 +34,5 @@ def signup(request):
         users = user(username=username, email=email,
                  password=password, created_date=timezone.now())
         users.save()
-        messages.info(request, '❤!!')
         messages.info(request, 'SignUp Successfull!!')
     return render(request, 'auth/Login_SignUp.html')
